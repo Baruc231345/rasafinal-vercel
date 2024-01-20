@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/insertSign.css" />
+  </head>
+  <body>
+    <!-- HTML form -->
+    <form id="myForm" enctype="multipart/form-data">
+      <div class="form fourth" style="height: 500px">
+        <input
+          type="file"
+          id="image_input"
+          placeholder="form_sign"
+          name="form_sign"
+          accept="image/png, image/jpeg"
+        />
+        <div id="form_sign"></div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+
+    <!-- Insert the Signature Here -->
+    <div id="form_sign3">
+      <% if (form_sign3) { %>
+      <img src="<%= form_sign3 %>" alt="Form Sign 3" />
+      <% } %>
+    </div>
+
+    <script src="js/insertSign.js"></script>
+    <script>
+      function displaySignature() {
+        const formSign3 = document.querySelector("#form_sign3");
+        formSign3.innerHTML = ""; // Clear existing content
+
+        const formSign3Image = new Image();
+        formSign3Image.src = "<%= form_sign3 %>";
+        formSign3.appendChild(formSign3Image);
+      }
+    </script>
+  </body>
+</html>

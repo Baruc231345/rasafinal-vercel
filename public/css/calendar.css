@@ -1,0 +1,123 @@
+layout.css
+#calendar {
+  font-family: Arial, sans-serif;
+  width: 95%;
+  height: 130%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#calendar h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#calendar table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#calendar th {
+  padding: 5px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+}
+#calendar td {
+  padding: 5px;
+  border: 1px solid #ccc;
+  height: 200px;
+  text-align: right;
+  width: 14.28%; 
+  box-sizing: border-box; 
+}
+
+.sub-head{
+  text-align: left;
+  margin: 0 20px 0 -10px;
+}
+
+.today{
+  background-color:rgb(255, 4, 4);
+}
+
+#calendar td.prev-date, td.next-date {
+  color: rgb(116, 116, 116);
+  
+}
+
+.event-container {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.event {
+  background-color: #f0ff1a;
+  padding: 2px 4px;
+  margin-bottom: 2px;
+}
+
+.event-span {
+  background-color: rgb(0, 246, 205);
+}
+
+#calendar td.current-date {
+  color: #000000
+}
+
+.header{
+  text-align: center;
+}
+
+#calendar button {
+  padding: 10px 15px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.sub-head{
+  text-align: left;
+  margin-top: -58px;
+  margin-bottom: 18px;
+  margin-left: 2px;
+}
+
+#calendar button:hover {
+  background-color: #e6e6e6;
+}
+
+.events {
+  background-color: rgb(248, 248, 211);
+}
+
+.events:hover {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+  color: white;
+}
+
+.red {
+  background-color: red;
+  color: white;
+}
+
+.green {
+  background-color: green;
+  color: white;
+}
+
+.current-day {
+  background-color: rgb(214, 231, 104);
+  color: white;
+}
+
+.calendar-container.expanded {
+  width: 70%; /* Adjust the width as needed */
+  margin-left: 15%; /* Adjust the left margin as needed */
+  transition: all 0.3s ease; /* Add a smooth transition effect */
+}

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard - Home - Sample</title>
+  <link rel="stylesheet" type="text/css" href="css/calendar.css">
+</head>
+
+<body>
+  <div id="calendar">
+    <div class="header">
+      <h1 id="month"></h1>
+    </div>
+    <div class="sub-head">
+      <button id="prev-btn">Prev</button>
+      <button id="next-btn">Next</button>
+      <button id="add-event-btn">Add Event</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const events = [];
+
+    function fetchCalendarInputData() {
+      fetch('/api/calendarInputData')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          events.length = 0;
+          events.push(
+            ...data.map((data) => ({
+              id: data.id,
+              date: new Date(data.event_day),
+              title: data.event_name,
+              description: data.event_description,
+              duration: data.required_day,
+            }))
+          );
+          showCalendar();
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+    fetchCalendarInputData();
+
+    const addEventBtn = document.getElementById('add-event-btn');
+    addEventBtn.addEventListener('click', () => {
+      const event_title = prompt('Enter event title:');
+
+      const event_description = prompt('Enter event description:');
+      const event_day = prompt('Enter event date (YYYY-MM-DD):');
+      const required_day = prompt('Enter required date: ');
+      const start_time = prompt('Indicate start time of event (e.g., 08:30 AM):');
+      const parsedStartTime = parseTime(start_time);
+      const end_time = prompt('Indicate end time of event (e.g., 12:30 PM)');
+      const [year, month, day] = event_day.split('-');
+      const date = new Date(year, month - 1, day);
+      const id = Math.max(...events.map(event => event.id || 0)) + 1;
+
+      if (event_title === null || event_description === null || 
+      event_day === null || required_day === null || start_time === null || end_time === null) {
+        alert("Please Try Again")
+        return; 
+      }
+
+      function parseTime(inputTime) {
+        const parsedTime = new Date(`2000-01-01T${inputTime}`);
+        const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+        return parsedTime.toLocaleTimeString([], options);
+      }
+
+      function isValidTime(timeString) {
+        const regex = /^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$/i;
+        return regex.test(timeString);
+      }
+
+      if (!isValidTime(parsedStartTime)) {
+      alert('Error: Invalid start time format. Please use HH:mm AM/PM format.');
+      } else {
+      if (required_day === '1' && start_time >= end_time) {
+        alert('Error: Start time must be less than end time when required day is 1.');
+        return;
+      }
+
+      const today = new Date();
+      if (date < today) {
+        alert('Error: Event date must be equal to or after the current day.');
+        return;
+      }
+
+      if (event_title && event_description && date instanceof Date && !isNaN(date.getTime())) {
+        events.push({ id, date, event_title, event_description, required_day, start_time, end_time });
+        const calendarInput = {
+          id: 0,
+          event_name: event_title,
+          event_day,
+          event_description,
+          required_day,
+          start_time,
+          end_time    
+        };
+        console.log(calendarInput)
+
+        fetch("/api/calendarInput", {
+          method: "POST",
+          body: JSON.stringify(calendarInput),
+          headers: {
+            "Content-type": "application/json",
+          },
+        })
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return res.json();
+          })
+          .then((data) => {
+            console.log("Response from API:", data);
+          })
+        showCalendar();
+      } else {
+        alert('Invalid event data. Please try again.');
+      }
+    }
+    });
+
+    const today = new Date();
+    let currentMonth = today.getMonth();
+    let currentYear = today.getFullYear();
+    const monthYearHeader = document.getElementById("month");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+
+    prevBtn.addEventListener("click", showPreviousMonth);
+    nextBtn.addEventListener("click", showNextMonth);
+
+    function showCalendar() {
+      const firstDay = new Date(currentYear, currentMonth, 1);
+      const lastDay = new Date(currentYear, currentMonth + 1, 0);
+      const daysInMonth = lastDay.getDate();
+
+      monthYearHeader.textContent = `${getMonthName(currentMonth)} ${currentYear}`;
+
+      const tableBody = document.querySelector("tbody");
+      tableBody.innerHTML = "";
+
+      let date = 1;
+      for (let i = 0; i < 6; i++) {
+        const row = document.createElement("tr");
+
+        for (let j = 0; j < 7; j++) {
+          if (i === 0 && j < firstDay.getDay()) {
+            const cell = document.createElement("td");
+            row.appendChild(cell);
+          } else if (date > daysInMonth) {
+            break;
+          } else {
+            const cell = document.createElement("td");
+            cell.textContent = date;
+            row.appendChild(cell);
+
+            // Find events for the current date
+            const currentDate = new Date(currentYear, currentMonth, date);
+            const cellEvents = events.filter(
+              (event) =>
+                event.date.getFullYear() === currentDate.getFullYear() &&
+                event.date.getMonth() === currentDate.getMonth() &&
+                event.date.getDate() === currentDate.getDate()
+            );
+
+            if (cellEvents.length > 0) {
+              const cellEventsContainer = document.createElement("div");
+              cellEventsContainer.classList.add("event-container");
+              cell.appendChild(cellEventsContainer);
+
+              for (const event of cellEvents) {
+                const eventElement = document.createElement("div");
+                eventElement.classList.add("event");
+
+                // Set the color based on the event duration
+                if (event.duration === 1) {
+                  eventElement.classList.add("blue");
+                } else if (event.duration === 2) {
+                  eventElement.classList.add("red");
+                } else if (event.duration >= 3) {
+                  eventElement.classList.add("green");
+                }
+
+                eventElement.innerHTML = `<strong>${event.title}</strong><br>${event.description}`;
+                cellEventsContainer.appendChild(eventElement);
+
+                eventElement.addEventListener("click", () => {
+                if (event.id === 0) {
+                  const promptMessage = `Title: ${event.title}\nDescription: ${event.description}\nDate: ${event.date.toDateString()}\nEvent Duration: ${event.duration} Days\nStart Time: ${convertTo12HourFormat(event.start_time)}\nEnd Time: ${convertTo12HourFormat(event.end_time)}`;
+                  alert(promptMessage);
+                } else {
+                  // If event.id is not zero, redirect to the specified URL
+                  window.location.href = `/ejsrasaCalendar/${event.id}`;
+                }
+              });
+              }
+            }
+
+            if (date === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+              cell.classList.add("current-day");
+            }
+            date++;
+          }
+        }
+
+        tableBody.appendChild(row);
+      }
+    }
+
+    function showPreviousMonth() {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      showCalendar();
+    }
+
+    function showNextMonth() {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      showCalendar();
+    }
+
+    function getMonthName(monthIndex) {
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      return monthNames[monthIndex];
+    }
+
+    function convertTo12HourFormat(time24) {
+      const [hours, minutes] = time24.split(':');
+      const period = hours >= 12 ? 'PM' : 'AM';
+      const hours12 = (hours % 12) || 12;
+      return `${hours12}:${minutes} ${period}`;
+    }
+
+    showCalendar();
+  </script>
+</body>
+
+</html>

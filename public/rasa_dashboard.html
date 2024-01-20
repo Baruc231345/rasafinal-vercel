@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Dashboard - Home - Sample</title>
+    <link rel="stylesheet" href="./css/rasa_dashboard.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" /> 
+  </head>
+  <body id="hometab">
+    <div class="wrapper">
+      <nav class="sidebar">
+        <div class="navbar">   
+        <h1 id="homepagetext"><span id="menu" class="material-symbols-outlined">menu</span>Dashboard ADMIN</h1>  
+          <ul id="list">
+              <li>
+              <a href="/dashboardAdmin"><span class="material-symbols-outlined">home</span>
+                <h4>Home</h4>
+              </a>
+            </li>
+            <li>
+              <a href="/dashboardAdmin"><span class="material-symbols-outlined">event_note</span>
+                <h4>Schedule</h4>
+              </a>
+            </li>
+            <li>
+              <a href="/userview"><span class="material-symbols-outlined">person</span>
+                <h4>Manage Users</h4>
+              </a>
+            </li>
+
+            <li>
+              <a href="/rasaview"><span class="material-symbols-outlined">list_alt</span>
+                <h4>RASA Status</h4>
+              </a>
+            </li>
+
+            <li>
+              <a href="/inventory12"><span class="material-symbols-outlined">list_alt</span>
+                <h4>Inventory</h4>
+              </a>
+            </li>
+            
+            <li>
+              <a href="/logout"><span class="material-symbols-outlined">logout</span>
+                <h4>Logout</h4>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div id="calendar-container" class="calendar-container">
+        
+    </div>
+    
+    <div id="calendar-container" class="calendar-container">
+      <div class="mainscreen">
+        <div class="container">
+            <header>Facility Reservation Request Form</header>
+              <form name="myForm" onsubmit="return false;" id="form">
+              <div class="form first">
+                <div class="details personal">
+                  <span class="title">Personal Details</span>
+                  <button type="button" onclick="generatePDF()">Download Button</button>
+                  <div class="fields1">
+                    <div class="input-field">
+                      <label>Full Name</label>
+                      <input type="text" id="full_name" placeholder="Enter your name" >
+                    </div>
+                    <div class="input-field">
+                      <label>Contact Number </label>
+                      <input type="text" id="contact_number" placeholder="Enter your mobile number" >
+                    </div>
+                    <div class="input-field">
+                      <label for="requestor_information">Requestor Information</label>
+                      <div class="select-wrapper">
+                        <select id="requestor_information" onchange="updateContactLabel()">
+                          <option value="" disabled selected>Select Description</option>
+                          <option value="Student_Leader">Student Leader</option>
+                          <option value="Student">Student</option>
+                          <option value="Teacher">Teacher</option>
+                          <option value="Admin">Staff</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="input-field">
+                      <label id ="requestor">Requestor Type </label>
+                      <input type="text" id="requestor_type" placeholder="" >
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              <div class="form second">
+                <div class="details personal">
+                  <span class="title">Event Information</span>
+                  <div class="fields2">
+                    <div class="input-field">
+                      <label>Event Name</label>
+                      <input type="text" id="event_name" placeholder="Enter Event Name" >
+                    </div>
+        
+                    <div class="input-field">
+                      <label for="event_description">Event Description</label>
+                      <div class="select-wrapper">
+                        <select id="event_description">
+                          <option value="" disabled selected>Select Description</option>
+                          <option value="Seminar">Seminar</option>
+                          <option value="Show">Show</option>
+                          <option value="Meeting">Meeting</option>
+                          <option value="Etc">Etc</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="input-field">
+                      <label>Expected Participants</label>
+                      <input type="number" id="participants" placeholder="# of Participants" >
+                    </div>
+                    <div class="input-field">
+                      <label>Purpose/Objective</label>
+                      <input type="text" id="purpose_objectives" placeholder="Specify the purpose" >
+                    </div>
+                    <div class="input-field"> 
+                      <label>How many days do you require use of the facility?</label>
+                      <input type="number" id="required_day" placeholder="Specify the days" required >
+                    </div>
+                    <div class="input-field">
+                      <label>Start Time</label>
+                      <input type="time" id = "start_time" placeholder="include set-up time or ingress">
+                    </div>
+                    <div class="input-field">
+                      <label>End Time</label>
+                      <input type="time" id = "end_time" placeholder="include break-down time or egress">
+                    </div>
+                    </div>  
+                <div class="mid">
+                  <div class="top">
+                  <span class="title">Facilities Needed</span>
+                  <p class="text">*please check all rooms/facilities you plan to use</p>
+                  <div class="fields3">
+                    <div class="row1">
+                    <label for="myRadioId" class="radio">
+                      <input type="checkbox" name="myRadioField" id="myRadioId" class="radio_input">
+                      <div class="radio_radio"></div>
+                      Auditorium 
+                    </label>
+                  </div>
+                  <div class="row2">
+                    <label for="myRadioId4" class="radio">
+                      <input type="checkbox" name="myRadioField" id="myRadioId4" class="radio_input">
+                      <div class="radio_radio"></div>
+                      Food and Beverage Room
+                    </label>    
+                  </div>
+                  <div class="row3">          
+                    <label for="myRadioId7" class="radio">
+                      <input type="checkbox" name="myRadioField" id="myRadioId7" class="radio_input">
+                      <div class="radio_radio"></div>
+                      Main Lobby
+                    </label>
+                    <div class="row7">
+                    <label for="myRadioId5" class="radio">
+                      <input type="checkbox" name="myRadioField" id="myRadioId5" class="radio_input">
+                      <div class="radio_radio"></div>
+                      Dance Studio 
+                    </label>
+                  </div>
+                    </div>
+                      <div class="row4">
+                        <label for="myRadioId1" class="radio">
+                          <input type="checkbox" name="myRadioField" id="myRadioId1" class="radio_input">
+                          <div class="radio_radio"></div>
+                          Multi Purpose Hall
+                        </label>
+                      </div>
+                      <div class="row5">
+                        <label for="myRadioId2" class="radio">
+                          <input type="checkbox" name="myRadioField" id="myRadioId2" class="radio_input">
+                          <div class="radio_radio"></div>
+                          Gymnasium
+                        </label>
+                      </div>
+                      <div class="row6">
+                        <label for="myRadioId3" class="radio">
+                          <input type="checkbox" name="myRadioField" id="myRadioId3" class="radio_input">
+                          <div class="radio_radio"></div>
+                          Classrooms
+                        </label>
+                      </div>
+                        <div class="row7">
+                        <label for="myRadioId6" class="radio">
+                        <input type="checkbox" name="myRadioField" id="myRadioId6" class="radio_input">
+                        <div class="radio_radio"></div>
+                        Kitchen Area
+                            </label>
+                </div>
+                </div>
+                  </div>
+                  <div class="details personal">
+                    <span class="title">Equipment Needed</span>
+                    <p class="text">*please check all equipment you plan to use</p>
+                    <div class="fields4">         
+                      <p class="text1">MIS/IT</p>
+                      <label for="myRadioId_1" class="radio2">
+                        <input type="checkbox" name="myRadioField" id="myRadioId_1" class="radio_input1">
+                        <div class="radio_radio1"></div>
+                        Sound System
+                        <div class="input-wide">
+                          <input type="number" placeholder="Number of Sound System" id="sound-system_input" disabled>
+                        </div>         
+                      </label>
+                      <label for="myRadioId_2" class="radio2">
+                        <input type="checkbox" name="myRadioField" id="myRadioId_2" class="radio_input1">
+                        <div class="radio_radio1"></div>
+                        Microphone
+                        <div class="input-wide">
+                          <input type="number" placeholder="Number of Microphone" id="microphone_input" disabled>
+                        </div>   
+                      </label>
+                      <label for="myRadioId_3" class="radio2">
+                        <input type="checkbox" name="myRadioField" id="myRadioId_3" class="radio_input1">
+                        <div class="radio_radio1"></div>
+                        LCD Projector
+                        <div class="input-wide">
+                          <input type="number" placeholder="Number of Lcd Projector" id="lcd-projector_input" disabled>
+                        </div>    
+                      </label> 
+                      <label for="myRadioId_4" class="radio2">
+                        <input type="checkbox" name="myRadioField" id="myRadioId_4" class="radio_input1">
+                        <div class="radio_radio1"></div>
+                        Widescreen
+                        <div class="input-wide">
+                          <input type="number" placeholder="Number of Sound System" id="wide-screen_input" disabled>
+                        </div> 
+                      </label>
+                    </div>
+                    <div class="fields5">
+                      <p class="text1">Bag</p>           
+                      <label for="myRadioId-1" class="radio3">
+                        <input type="checkbox" name="myRadioField" id="myRadioId-1" class="radio_input2">
+                        <div class="radio_radio2"></div>
+                        Chair/s
+                        <div class="input-wide">
+                          <input type="number" placeholder="Number of Chair/s" id="chair_input" disabled>
+                        </div>          
+                      </label>
+                      <label for="myRadioId-2" class="radio3">
+                        <input type="checkbox" name="myRadioField" id="myRadioId-2" class="radio_input2">
+                        <div class="radio_radio2"></div>
+                        Table/s
+                        <div class="input-wide">
+                          <input type="number" placeholder="Number of Table/s" id="table_input" disabled>
+                        </div>    
+                      </label>
+                      <div class="row3">
+                      <label for="myRadioId-3" class="radio3">
+                        <input type="checkbox" name="myRadioField" id="myRadioId-3" class="radio_input2">
+                        <div class="radio_radio2"></div>
+                        Black Panel
+                        <div class="input-wide">
+                          <input type="number" placeholder="Number of Black Panel" id="black-panel_input" disabled>
+                        </div>  
+                      </label>
+                      <label for="myRadioId-4" class="radio3">
+                        <input type="checkbox" name="myRadioField" id="myRadioId-4" class="radio_input2">
+                        <div class="radio_radio2"></div>
+                        Whiteboard             
+                        <div class="input-wide">
+                          <input type="number" placeholder="Number of Whiteboard" id="whiteboard_input" disabled>
+                        </div>  
+                      </label>
+                    </div>
+                      <div class="aircon">
+                        <label for="myRadioId-6" class="radio3">
+                          <input type="checkbox" name="myRadioField" id="myRadioId-6" class="radio_input2">
+                          <div class="radio_radio2"></div>
+                          Aircon Time
+                        </label>             
+                        <div class="input-aircon">
+                          <input type="time" placeholder="Start of Aircon Time" id="start-time" disabled>
+                        </div>
+                       <p class="text1">to</p>         
+                        <div class="input-aircon">
+                          <input type="time" placeholder="End of Aircon Time" id="end-time" disabled>
+                        </div>
+                        </div>
+                        <div class="input-other">
+                          <label for="myRadioId-7" class="radio3">
+                            <input type="checkbox" name="myRadioField" id="myRadioId-7" class="radio_input2">
+                            <div class="radio_radio2"></div>
+                            Other:
+                          </label>
+                          <input type="text" placeholder="Other/s" id="otherInput" disabled>
+                        </div>         
+                </div>
+                </div>
+                </div>
+                <div class="form third">
+                      <button onclick="displayNotice()">Enter</button>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="form fourth" style="height: 500px;">
+                    <div id ="form_sign"></div>
+                    <div id = "text_signature">Venue Approval</div>
+                    <div id ="form_sign2">
+                      <div id ="form_sign2"></div>
+                      <div id = "text_signature2">OSA Approval</div>
+                    </div>
+                  </div>
+              </form>
+            </div>
+      </div>
+  <script src="js/dashboard.js"></script>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FMS - Login</title>
+  <link rel="stylesheet" type="text/css" href="css/style1.css">
+</head>
+
+<body class="parent">
+  <div id="globalcontainer">
+
+    <div class="first-block-color"></div>
+    <div class="second-block-color"></div>
+    <div class="third-block-color"></div>
+
+    <header class="fixed-top">
+      <nav>
+        <h1 class="heading">Faculty Management <br>System</h1>
+      </nav>
+    </header>
+
+    <!-- body -->
+    <div class="dynamic-body">
+      <form onsubmit="return false;" id="form">
+        <div class="logincontainer">
+          <label for="reg_name">Register Username:</label>
+          <input type="text" id="reg_name" name="email" oninput="updateUsername(this.value)"
+            placeholder="@globalcity.sti.edu.ph">
+          <br>
+          <label for="reg_fullname">Full Name:</label>
+          <input type="text" id="reg_fullname">
+          <br>
+          <label for="reg_name">School ID/Employee ID:</label>
+          <input type="number" id="reg_user">
+          <br>
+          <label for="reg_requestor">Requestor Information:</label>
+          <select id="reg_requestor"  onchange="changeLabel()">  
+            <option value="student">Student</option>
+            <option value="student_leader">Student Leader</option>
+            <option value="teacher">Teacher</option>
+            <option value="staff">Staff</option>
+          </select>
+          <br>
+          <label id="reg_courseLabel" for="reg_course">Course:</label>
+          <br>
+          <select id="reg_course">  
+            <option value="BSBA">BSBA</option>
+            <option value="BSHM">BSHM</option>
+            <option value="BSIT">BSIT</option>
+            <option value="BSTM">BSTM</option>
+          </select>
+          <br>
+
+          <label for="reg_contactnumber">Contact Number:</label>
+          <input type="text" id="reg_contactnumber" name="contact_number" inputmode="numeric" pattern="\d{11}" maxlength="11">
+          <br>
+          <label for="reg_pass">Register Password:</label>
+          <div class="password-container">
+            <input type="password" id="reg_pass" name="password">
+            <span class="password-toggle" onclick="togglePassword('reg_pass')"></span>
+          </div>
+          <label for="confirm_pass">Confirm Password:</label>
+          <div class="password-container">
+            <input type="password" id="confirm_pass" name="confirm_password">
+            <span class="password-toggle" onclick="togglePassword('confirm_pass')"></span>
+          </div>
+          <div class="message">
+            <div class="success" id="success">Successfully Register!</div>
+            <div class="danger" id="danger">Successfully Login!</div>
+          </div>
+          <button type="submit" id="regBtn_submit"><strong>Register Submit</strong></button>
+          <button type="button" id="regBtn_register"><strong>Back to Login</strong></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="js/newRegister.js"></script>
+
+</body>
+
+</html>

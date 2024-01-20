@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Responsive Registration Form | CodingLab </title>
+    <link rel="stylesheet" href="./css/newrasastyle.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <div class="title">Facility Reservation Request Form</div>
+    <div class="content">
+      <form action="#">
+        <div class="user-details">
+
+            <!-- First Form -->
+          <div class="input-box">
+            <span class="details">Full Name</span>
+            <input type="text" placeholder="Enter your name" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Contact Number</span>
+            <input type="text" placeholder="Enter your username" required>
+          </div>
+
+          <div class="input-box" required>
+            <label for="requestor_information">Requestor Information</label>
+            <div class="details">
+                <select id="requestor_information" required>
+                    <option value="" disabled selected>Select Description</option>
+                    <option value="Student_Leader">Student Leader</option>
+                    <option value="Student">Student</option>
+                    <option value="Teacher">Teacher</option>
+                    <option value="Staff">Staff</option>
+                </select>
+            </div>
+        </div>
+
+          <div class="input-box">
+            <span class="details">Requestor Type</span>
+            <input type="text" id="requestor_type" placeholder="Enter your number" required>
+          </div>
+
+          <!-- Second Form -->
+
+          <div class="input-box">
+            <span class="details">Event Name</span>
+            <input type="text" placeholder="Enter your password" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Event Date</span>
+            <input type="date" placeholder="Confirm your password" required>
+          </div>
+
+          <div class="input-box" required>
+            <label for="event_description">Event Description</label>
+            <div class="details">
+                <select id="event_description" required>
+                    <option value="" disabled selected>Select Description</option>
+                    <option value="Seminar">Seminar</option>
+                    <option value="Show">Show</option>
+                    <option value="Meeting">Meeting</option>
+                    <option value="Etc">Etc</option>
+                </select>
+            </div>
+        </div>
+        
+          <div class="input-box">
+            <span class="details">Purpose Objective</span>
+            <input type="text" placeholder="Specify the Purpose" required>
+          </div>
+
+          <div class="input-box">
+            <span class="details">Expected Participants</span>
+            <input type="number" placeholder="Number of Participants" required>
+          </div>
+
+          <div class="input-box">
+            <span class="details">Required Days</span>
+            <input type="number" placeholder="Specify Required Days" required>
+          </div>
+
+          <div class="input-box">
+            <span class="details">Start Time</span>
+            <input type="time" placeholder="Enter your password" required>
+          </div>
+
+          <div class="input-box">
+            <span class="details">End Time</span>
+            <input type="time" placeholder="Enter your password" required>
+          </div>
+
+
+
+
+
+        </div>
+
+        <div class="top">
+            <span class="title">Facilities Needed</span>
+            <p class="text">*please check all rooms/facilities you plan to use</p>
+            <div class="fields3">
+              <div class="row1">
+                <label for="myRadioId" class="radio">
+                  <input type="checkbox" name="myRadioField" id="myRadioId" class="radio_input">
+                  <div class="radio_radio"></div>
+                  Auditorium
+                </label>
+              </div>
+              <div class="row2">
+                <label for="myRadioId4" class="radio">
+                  <input type="checkbox" name="myRadioField" id="myRadioId4" class="radio_input">
+                  <div class="radio_radio"></div>
+                  Food and Beverage Room
+                </label>
+              </div>
+              <div class="row3">
+                <label for="myRadioId7" class="radio">
+                  <input type="checkbox" name="myRadioField" id="myRadioId7" class="radio_input">
+                  <div class="radio_radio"></div>
+                  Main Lobby
+                </label>
+                <div class="row7">
+                  <label for="myRadioId5" class="radio">
+                    <input type="checkbox" name="myRadioField" id="myRadioId5" class="radio_input">
+                    <div class="radio_radio"></div>
+                    Dance Studio
+                  </label>
+                </div>
+              </div>
+              <div class="row4">
+                <label for="myRadioId1" class="radio">
+                  <input type="checkbox" name="myRadioField" id="myRadioId1" class="radio_input">
+                  <div class="radio_radio"></div>
+                  Multi Purpose Hall
+                </label>
+              </div>
+              <div class="row5">
+                <label for="myRadioId2" class="radio">
+                  <input type="checkbox" name="myRadioField" id="myRadioId2" class="radio_input">
+                  <div class="radio_radio"></div>
+                  Gymnasium
+                </label>
+              </div>
+              <div class="row6">
+                <label for="myRadioId3" class="radio">
+                  <input type="checkbox" name="myRadioField" id="myRadioId3" class="radio_input">
+                  <div class="radio_radio"></div>
+                  Classrooms
+                </label>
+              </div>
+              <div class="row7">
+                <label for="myRadioId6" class="radio">
+                  <input type="checkbox" name="myRadioField" id="myRadioId6" class="radio_input">
+                  <div class="radio_radio"></div>
+                  Kitchen Area
+                </label>
+              </div>
+            </div>
+
+
+
+            <div class="details personal">
+                <span class="title">Equipment Needed</span>
+                <p class="text">*please check all equipment you plan to use</p>
+                <div class="fields4">
+                  <p class="text1">MIS/IT</p>
+                  <label for="myRadioId_1" class="radio2">
+                    <input type="checkbox" name="myRadioField" id="myRadioId_1" class="radio_input1">
+                    <div class="radio_radio1"></div>
+                    Sound System
+                    <div class="input-wide">
+                      <input type="number" placeholder="Number of Sound System" id="sound-system_input" disabled>
+                    </div>
+                  </label>
+                  <label for="myRadioId_2" class="radio2">
+                    <input type="checkbox" name="myRadioField" id="myRadioId_2" class="radio_input1">
+                    <div class="radio_radio1"></div>
+                    Microphone
+                    <div class="input-wide">
+                      <input type="number" placeholder="Number of Microphone" id="microphone_input" disabled>
+                    </div>
+                  </label>
+                  <label for="myRadioId_3" class="radio2">
+                    <input type="checkbox" name="myRadioField" id="myRadioId_3" class="radio_input1">
+                    <div class="radio_radio1"></div>
+                    LCD Projector
+                    <div class="input-wide">
+                      <input type="number" placeholder="Number of Lcd Projector" id="lcd-projector_input" disabled>
+                    </div>
+                  </label>
+                  <label for="myRadioId_4" class="radio2">
+                    <input type="checkbox" name="myRadioField" id="myRadioId_4" class="radio_input1">
+                    <div class="radio_radio1"></div>
+                    Widescreen
+                    <div class="input-wide">
+                      <input type="number" placeholder="Number of Sound System" id="wide-screen_input" disabled>
+                    </div>
+                  </label>
+                </div>
+                <div class="fields5">
+                  <p class="text1">Bag</p>
+                  <label for="myRadioId-1" class="radio3">
+                    <input type="checkbox" name="myRadioField" id="myRadioId-1" class="radio_input2">
+                    <div class="radio_radio2"></div>
+                    Chair/s
+                    <div class="input-wide">
+                      <input type="number" placeholder="Number of Chair/s" id="chair_input" disabled>
+                    </div>
+                  </label>
+                  <label for="myRadioId-2" class="radio3">
+                    <input type="checkbox" name="myRadioField" id="myRadioId-2" class="radio_input2">
+                    <div class="radio_radio2"></div>
+                    Table/s
+                    <div class="input-wide">
+                      <input type="number" placeholder="Number of Table/s" id="table_input" disabled>
+                    </div>
+                  </label>
+                  <div class="row3">
+                    <label for="myRadioId-3" class="radio3">
+                      <input type="checkbox" name="myRadioField" id="myRadioId-3" class="radio_input2">
+                      <div class="radio_radio2"></div>
+                      Black Panel
+                      <div class="input-wide">
+                        <input type="number" placeholder="Number of Black Panel" id="black-panel_input" disabled>
+                      </div>
+                    </label>
+                    <label for="myRadioId-4" class="radio3">
+                      <input type="checkbox" name="myRadioField" id="myRadioId-4" class="radio_input2">
+                      <div class="radio_radio2"></div>
+                      Whiteboard
+                      <div class="input-wide">
+                        <input type="number" placeholder="Number of Whiteboard" id="whiteboard_input" disabled>
+                      </div>
+                    </label>
+                  </div>
+                  <div class="aircon" style="height: 30px;width: 400px;">
+                    <label for="myRadioId-6" class="radio3">
+                      <input type="checkbox" name="myRadioField" id="myRadioId-6" class="radio_input2">
+                      <div class="radio_radio2"></div>
+                      Aircon Time
+                    </label>
+                    <div class="input-aircon">
+                      <input type="time" placeholder="Start of Aircon Time" id="start-time" disabled>
+                    </div>
+                    <p class="text1">to</p>
+                    <div class="input-aircon">
+                      <input type="time" placeholder="End of Aircon Time" id="end-time" disabled>
+                    </div>
+                  </div>
+                  <div class="input-other" style="
+                      width: 300px;
+                      height: 25px;
+                  ">
+                    <label for="myRadioId-7" class="radio3">
+                      <input type="checkbox" name="myRadioField" id="myRadioId-7" class="radio_input2">
+                      <div class="radio_radio2"></div>
+                      Other:
+                    </label>
+                    <input type="text" placeholder="Other/s" id="otherInput" disabled>
+                  </div>
+                </div>
+              </div>
+
+        <div class="button">
+          <input type="submit" value="Register">
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

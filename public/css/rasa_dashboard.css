@@ -1,0 +1,697 @@
+/*----------------------- Login Form -----------------------------------*/
+#globalcontainer{
+    position: absolute;
+    top: 50%;
+    left:60%;
+    transform:translate(-50%,-85%)
+  }
+  
+  body.parent{
+    background-color: #f0f2f5;
+    font-family: sans-serif;
+    overflow: scroll;
+  }
+  
+  .first-block-color{
+    width:910px;
+    height: 410px;
+    background-color: #ffff00;
+    box-shadow: 0px 0px 10px #7e7e7e;
+    z-index: -1;
+    position: absolute;
+    margin: -25% 0 0 -110%;
+    border-radius: 4px;
+  }
+  
+  .second-block-color{
+    width: 600px;
+    height: 450px;
+    background-color: #6e6e6e;
+    box-shadow: 0px 0px 10px #67717d;
+    z-index: -1;
+    position: absolute;
+    margin: -8% 0 0 -8%;
+    border-radius: 4px;
+  }
+  
+  .third-block-color{
+    width: 343px;
+    height: 125px;
+    background-color: #fcaf17;
+    box-shadow: 0px 0px 10px #67717d;
+    z-index: -1;
+    position: absolute;
+    margin: 5% 0 0 -90%;
+    border-radius: 4px;
+  }
+  
+  h1.heading{
+    position: absolute;
+    text-align: right;
+    margin: 12% 0 0 -76%;
+    border-right: solid 5px #287dde; 
+    padding-right: 24px;
+    color: #000;
+  }
+  
+  h2.logintext{
+      text-align: center;
+      margin-top: -10px;
+      margin-bottom: 24px;
+      border-bottom: solid 1px #c0c0c0 ;
+      line-height: 45px;
+  }
+  
+  form.logincontainer{
+      width: 390px;
+      height: 240px;
+      border: 14px solid #ffffff;
+      border-radius: 12px;
+      background-color: #ffffff;
+  }
+  
+  input[type="text"] {
+      width: 291px;
+      padding: 12px;
+      margin-left: 50px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+  }
+  
+  button[type="button"] {
+      background-color: #01579B;
+      color: #ffffff;
+      padding: 14px;
+      margin-left: 94px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 200px;
+  }
+    
+  button[type="button"]:hover {
+      background-color: #287dde;
+  }
+  
+  /*----------------------- Dashboard -----------------------------------*/
+  
+  #hometab{
+    background-color: #f0f2f5;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1500px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #homepagetext{
+    padding:30px;
+    display: flex;
+    column-gap: 20px;
+    margin-left: -9px;
+  }
+  
+  .wrapper{
+    z-index: 2;
+  }
+  
+  .mainscreen{
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .navbar a{
+      display: flex;
+      column-gap: 10px;
+      align-items: center;
+      margin-bottom:-3px;
+      text-decoration: none;
+      color: #5f6368;
+      transition: all 300ms ease;
+  }
+  
+  .navbar a:hover{
+      margin-left: 3px;
+  }
+  
+  nav.sidebar{
+      width: 60px;
+      height:102vh;
+      background-color: #ffffff;
+      margin: -20px 0 0 -8px;
+      transition: 0.5s ease-out;
+      overflow: hidden; 
+      float: left;
+  }
+  
+  .navbar{
+    font-family: sans-serif;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  nav.sidebar:hover{
+    width: 200px;
+  }
+  
+  nav.sidebar:hover #menu{
+    writing-mode: vertical-rl; 
+    display: block;
+  }
+  
+  #list{
+    margin-left: -20px;
+    list-style-type:none;
+  }
+  
+  #list h4{
+    margin-left: 10px;
+  }
+  
+  #list li:last-child{
+    margin-top: 200px;
+  }
+  
+  
+  .highlight{
+    background-color: #F0F2F5;
+    border-left: solid 5px #7B6CC9;
+    border-radius: 3px;
+    padding-left: 10px;
+    margin-left: -10px;
+  }
+
+.mainscreen{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #4070f4;
+}
+
+.container {
+    position: relative;
+    max-width: 800px; /* Set a fixed width */
+    height: 100%;
+    width: 60%;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    padding: 30px;
+    margin: 0 auto; /* Center the container */
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container input {
+    width: 100%;
+    clear: both;
+}
+
+.fields2 .input-field:nth-child(1),
+.fields2 .input-field:nth-child(4),
+.fields2 .input-field:nth-child(3),
+.fields2 .input-field:nth-child(2),
+.fields1 .input-field:nth-child(1),
+.fields1 .input-field:nth-child(2) {
+    width: 380px;
+}
+
+
+.fields2 .input-field:nth-last-child(3) input,
+.fields2 .input-field:nth-child(1) input {
+    margin-right: 350px;
+    width: 300px;
+}
+
+
+.input-field2{
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 0 15px;
+    height: 30px;
+    margin: 8px 0;
+}
+
+.fields2 .input-field:nth-last-child(2),
+.fields2 .input-field:last-child {
+    width: 380px;
+}
+
+.container header {
+    position: relative;
+    font-size: 30px;
+    font-weight: 600;
+    color: #333;
+    padding-bottom: 1%;
+}
+
+.container header::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 3px;
+    width: 100%;
+    border-radius: 8px;
+    background-color: #2b06ff;
+}
+
+.container form {
+    position: relative;
+    margin-top: 10px;
+    min-height: 1000px;
+    max-height: 10000px;
+    background-color: #ffffff;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.container form .details {
+    /*margin-top: 10px; */
+}
+
+.container form .title, .title2 {
+    display: flex;
+    margin-bottom: 8px;
+    font-size: 30px;
+    font-weight: 500;
+    margin: 6px 0;
+    color: #333;
+}
+
+.container form .fields1,
+.container form .fields2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns with equal width */
+    grid-gap: 10px; /* Adjust the gap as needed */
+    flex-wrap: wrap;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+}
+
+form .fields .input-field {
+    display: flex;
+    width: calc(100% / 3 - 15px);
+    flex-direction: column;
+    margin: 4px 0;
+}
+
+.input-field label {
+    font-size: 20px;
+    font-weight: 200;
+    color: #9e1d1d;
+}
+
+.input-field1 label {
+    font-size: 20px;
+    font-weight: 200;
+    color: #000000;
+}
+
+.input-field input,
+.input-field1 input,
+select {
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 0 15px;
+    height: 30px;
+    margin: 8px 0;
+    width: 300px
+}
+
+form .fields2 .input-field1 {
+    display: flex;
+    height: 100%;
+    width: calc(100% / 3 - 15px);
+    flex-direction: column;
+    margin: 4px 0;
+    margin-bottom: 60px;
+}
+
+.container form button,
+.backBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    margin: 25px 0;
+    background-color: #ff3d02;
+    transition: all 0.3s linear;
+    cursor: pointer;
+}
+
+.container form button,
+.container form .backBtn {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+form button:hover {
+    background-color: #f10909;
+}
+
+.form.third {
+    margin-top: 60px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto; /* Set height to auto */
+    transition: all 0.3s ease-in-out;
+    margin-top: 0px;
+}
+
+form.test .form.second,
+form.test1 .form.third {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+form.test .form.third,
+form.test .form.first,
+form.test1 .form.first,
+form.test1 .form.second {
+    opacity: 0;
+    pointer-events: none;
+}
+
+form.fields4,
+form.fields5 {
+    margin-top: 0px;
+}
+
+.top {
+    width: 1000px;
+}
+
+form button i,
+form .backBtn i {
+    margin: 0 6px;
+}
+
+.fields4,
+.fields5 {
+    height: 100px;
+}
+
+.mid {
+    display: flex;
+}
+
+form .backBtn i,
+form .buttons {
+    display: flex;
+    align-items: center;
+}
+
+form .buttons button,
+.backBtn {
+    margin-right: 15px;
+}
+
+form .backBtn i,
+form .backBtn2 i {
+    transform: rotate(180deg);
+}
+
+.text {
+    font-size: 15px;
+    margin-left: 10px;
+    margin-top: 0px;
+    font-style: italic;
+    color: #f10909;
+}
+
+.text1 {
+    font-size: 15px;
+    margin-left: 10px;
+    font-style: italic;
+    color: #000000;
+}
+
+.radio,
+.radio2,
+.radio3 {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.radio_input,
+.radio_input2,
+.radio_input1 {
+    display: none;
+}
+
+.radio_radio {
+    width: 1.25em;
+    height: 1.25em;
+    border: 2px solid #f00404;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-sizing: border-box;
+    padding: 2px;
+}
+
+.radio_radio1 {
+    width: 1.25em;
+    height: 1.25em;
+    border: 2px solid #0edf11;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-sizing: border-box;
+    padding: 2px;
+}
+
+.radio_radio2 {
+    width: 1.25em;
+    height: 1.25em;
+    border: 2px solid #f5ed0a;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-sizing: border-box;
+    padding: 2px;
+}
+
+.radio_radio::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    background: rgb(0, 0, 0);
+    transform: scale(0);
+    transition: transform 0.15s;
+}
+
+.radio_radio1::after,
+.radio_radio2::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    background: rgb(0, 0, 0);
+    transform: scale(0);
+    transition: transform 0.15s;
+}
+
+.radio_input:checked + .radio_radio::after,
+.radio_input1:checked + .radio_radio1::after,
+.radio_input2:checked + .radio_radio2::after {
+    transform: scale(1);
+}
+
+.fields3 {
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.fields5 .input-other {
+    display: flex;
+    margin-left: 0;
+    width: 300px;
+    height: 30px;
+}
+
+.radio-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.radio-buttons label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio-buttons input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #aaa;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.checkmark::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 10px;
+    height: 10px;
+    background-color: #2196F3;
+    border-radius: 50%;
+    transition: transform 0.2s ease-in-out;
+}
+
+.radio-buttons input[type="radio"]:checked + .checkmark::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.label-text {
+    font-size: 16px;
+}
+
+.input-aircon {
+    margin-left: 10px;
+}
+
+.other,
+.aircon {
+    display: flex;
+    align-items: center;
+}
+
+.input-wide,
+.input-other {
+    margin-left: 10px; /* Adjust the desired amount of top margin */
+}
+
+.signature-form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.signature-column {
+    flex: 1;
+}
+
+.signature-container {
+    width: 200px;
+    height: 150px;
+    border-bottom: 3px solid;
+    margin-bottom: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    margin-left: 90px;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+    position: absolute;
+}
+
+.form_sign,
+.form_sign2,
+.form_sign3,
+.form_sign4,
+.form_sign5,
+.form_sign6 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#requestor_type.long-input {
+    width: 300px; /* Adjust the width as per your requirements */
+}
+
+/* Customize the appearance of checkboxes */
+input[type="checkbox"] {
+    width: 20px; /* Adjust the width and height as needed */
+    height: 20px;
+    border: 1px solid #000; /* Add a border for the checkbox */
+    margin-right: 5px; /* Add some spacing between checkbox and label */
+}
+
+/* Style for checked checkboxes */
+input[type="checkbox"]:checked::before {
+    content: "\2713"; /* Unicode checkmark character */
+    display: inline-block;
+    font-size: 16px; /* Adjust the size of the checkmark as needed */
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    background-color: #000; /* Color for the checked state */
+    color: #fff; /* Color for the checkmark itself */
+    border: none; /* Remove the border for the checked state */
+}
+
+
+/* Make start time and end time input-field elements shorter */
+.start_time,
+.input-wide,
+.input-other {
+    width: 200px; /* Set the desired width for start time and end time */
+}
+
+/* Optionally, adjust the margin for better alignment */
+.input-wide,
+.input-other {
+    margin-left: 10px; /* Adjust the desired amount of margin */
+}
+
+.required_day{
+    width: 50px;
+}
+.classroom_number {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50%;
+  }

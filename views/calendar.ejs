@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard - Home - Sample</title>
+  <link rel="stylesheet" type="text/css" href="css/calendar.css">
+</head>
+<body>
+  <div id="calendar" class="calendar-container">
+    <div class="header">
+      <h1 id="month"></h1>
+    </div>
+    <div class="sub-head">
+      <button id="prev-btn">Prev</button>
+      <button id="next-btn">Next</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Calendar dates will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const events = [];
+
+    function fetchCalendarInputData() {
+      fetch('/api/calendarInputData')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          events.length = 0; // Clear the existing events array
+          events.push(
+            ...data.map((data) => ({
+              id: data.id,
+              date: new Date(data.event_day),
+              title: data.event_name,
+              description: data.event_description,
+              duration: data.required_day,
+              start_time: data.start_time,
+              end_time: data.end_time
+            }))
+          );
+          showCalendar();
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+    fetchCalendarInputData();
+
+    const today = new Date();
+    let currentMonth = today.getMonth();
+    let currentYear = today.getFullYear();
+    const monthYearHeader = document.getElementById("month");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+
+    prevBtn.addEventListener("click", showPreviousMonth);
+    nextBtn.addEventListener("click", showNextMonth);
+
+    function calculateMaxCellHeight(currentYear, currentMonth, weekNumber) {
+      const firstDay = new Date(currentYear, currentMonth, 1);
+      const startingDay = new Date(
+        firstDay.getFullYear(),
+        firstDay.getMonth(),
+        1 + (weekNumber - 1) * 7
+      );
+
+      let maxCellHeight = 0;
+
+      for (let date = startingDay.getDate(); date < startingDay.getDate() + 7; date++) {
+        const eventCount = events.filter(
+          (event) =>
+            event.date.getFullYear() === currentYear &&
+            event.date.getMonth() === currentMonth &&
+            event.date.getDate() === date
+        ).length;
+        const cellHeight = 100 + eventCount * 26
+
+        if (cellHeight > maxCellHeight) {
+          maxCellHeight = cellHeight;
+        }
+      }
+
+      return maxCellHeight;
+    }
+
+    function showCalendar() {
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const lastDay = new Date(currentYear, currentMonth + 1, 0);
+    const daysInMonth = lastDay.getDate();
+
+    monthYearHeader.textContent = `${getMonthName(currentMonth)} ${currentYear}`;
+
+    const tableBody = document.querySelector("tbody");
+    tableBody.innerHTML = "";
+
+    let date = 1;
+    let currentWeek = 1;
+
+    for (let i = 0; i < 6; i++) {
+      const row = document.createElement("tr");
+
+      for (let j = 0; j < 7; j++) {
+        let cell;
+
+        if (i === 0 && j < firstDay.getDay()) {
+          cell = document.createElement("td");
+          row.appendChild(cell);
+        } else if (date > daysInMonth) {
+          break;
+        } else {
+          cell = document.createElement("td");
+          cell.textContent = date;
+          row.appendChild(cell);
+
+          const cellEventsContainer = document.createElement("div");
+          cellEventsContainer.classList.add("event-container");
+          cell.appendChild(cellEventsContainer);
+
+          const currentDate = new Date(currentYear, currentMonth, date);
+          const cellEvents = events.filter(
+            (event) =>
+              event.date.getFullYear() === currentDate.getFullYear() &&
+              event.date.getMonth() === currentDate.getMonth() &&
+              event.date.getDate() === currentDate.getDate()
+          );
+
+          for (const event of cellEvents) {
+            const eventElement = document.createElement("div");
+            eventElement.classList.add("event");
+
+            // Set the color based on the event duration
+            if (event.duration === 1) {
+              eventElement.classList.add("blue");
+            } else if (event.duration === 2) {
+              eventElement.classList.add("red");
+            } else if (event.duration >= 3) {
+              eventElement.classList.add("green");
+            }
+
+            eventElement.innerHTML = `<strong>${event.title}</strong><br>${event.description}`;
+            cellEventsContainer.appendChild(eventElement);
+            eventElement.addEventListener("click", () => {
+                const promptMessage = `Title: ${event.title}\nDescription: ${event.description}\nDate: ${event.date.toDateString()}\nEvent Duration: ${event.duration} Days\nStart Time: ${convertTo12HourFormat(event.start_time)}\nEnd Time: ${convertTo12HourFormat(event.end_time)}`;
+                alert(promptMessage);
+            });
+          }
+
+          if (date === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+            cell.classList.add("current-day");
+          }
+          date++;
+        }
+      }
+
+      // Calculate and set the maximum cell height for the entire row
+      const maxCellHeight = calculateMaxCellHeight(currentYear, currentMonth, currentWeek);
+      Array.from(row.getElementsByTagName("td")).forEach((cell) => {
+        cell.style.height = `${maxCellHeight}px`;
+      });
+
+      currentWeek++;
+      tableBody.appendChild(row);
+    }
+  }
+
+    function showPreviousMonth() {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      showCalendar();
+    }
+
+    function showNextMonth() {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      showCalendar();
+    }
+
+    function getMonthName(monthIndex) {
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      return monthNames[monthIndex];
+    }
+
+    function convertTo12HourFormat(time24) {
+      const [hours, minutes] = time24.split(':');
+      const period = hours >= 12 ? 'PM' : 'AM';
+      const hours12 = (hours % 12) || 12;
+      return `${hours12}:${minutes} ${period}`;
+    }
+
+    showCalendar();
+  </script>
+</body>
+</html>

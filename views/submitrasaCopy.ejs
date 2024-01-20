@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/rasa_copy.css">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="note">
+      <% if (datainputted.rasa_note_void==="0" && datainputted.rasa_noteClassroom !=="0" ) { %>
+        NOTE Classroom: <%= datainputted.rasa_noteClassroom %> <br>
+          <% } %>
+
+            <% if (datainputted.rasa_note_void==="0" && datainputted.rasa_noteHRM !=="0" ) { %>
+              NOTE HRM: <%= datainputted.rasa_noteHRM %> <br>
+                <% } %>
+
+                  <% if (datainputted.rasa_note_void==="0" && datainputted.rasa_note !=="0" ) { %>
+                    NOTE 1: <%= datainputted.rasa_note %> <br>
+                      <% } %>
+
+                        <% if (datainputted.rasa_note_void==="0" && datainputted.rasa_note2 !=="0" ) { %>
+                          NOTE 2: <%= datainputted.rasa_note2 %> <br>
+                            <% } %>
+
+                              <% if (datainputted.rasa_note_void==="0" && datainputted.rasa_note3 !=="0" ) { %>
+                                NOTE 3: <%= datainputted.rasa_note3 %> <br>
+                                  <% } %>
+
+                                    <% if (datainputted.rasa_note_void !=="0" ) { %>
+                                      RASA VOID: <%= datainputted.rasa_note_void %> <br>
+                                        <% } %>
+    </div>
+
+    <header>Summary Rasa Form</header>
+    <form name="myForm" onsubmit="return false;" id="form">
+      <div class="form first">
+        <div class="details personal">
+          <span class="title">Personal Details</span>
+
+          <div class="fields1">
+            <div class="input-field">
+              <label>Full Name</label>
+              <input type="text" id="full_name" value="<%= datainputted.full_name %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Contact Number </label>
+              <input type="text" id="contact_number" value="<%= datainputted.contact_number %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Requestor Information</label>
+              <input type="text" id="requestor_information" value="<%= datainputted.requestor_information %>" disabled>
+            </div>
+
+            <div class="input-field" style="width: 380px;">
+              <label>Requestor Type </label>
+              <input type="text" id="requestor_type" value="<%= datainputted.requestor_type %>" disabled>
+            </div>
+
+            <% if (datainputted.requestor_type==="Student" || datainputted.requestor_type==="Student Leader" ) { %>
+              <div class="input-field">
+                <label>Endorsed by</label>
+                <input type="text" id="endorsed" value="<%= datainputted.endorsed %>" disabled>
+              </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="form second">
+        <div class="details personal">
+          <span class="title">Event Information</span>
+
+          <div class="fields2">
+            <div class="input-field">
+              <label>Event Name</label>
+              <input type="text" id="event_name" value="<%= datainputted.event_name %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Event Date/Day</label>
+              <input type="date" id="event_day" value="<%= datainputted.event_day.toISOString().split('T')[0] %>"
+                onchange="formatDate()" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Event Description</label>
+              <input type="text" id="event_description" value="<%= datainputted.event_description %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Expected Participants</label>
+              <input type="number" id="participants" value="<%= datainputted.participants %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Purpose/Objective</label>
+              <input type="text" id="purpose_objectives" value="<%= datainputted.purpose_objectives %>" disabled>
+            </div>
+
+            <div class="input-field" style="width: 380px;">
+              <label>Days of Facility</label>
+              <input type="text" id="required_day" value="<%= datainputted.required_day %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Start Time</label>
+              <input type="time" id="start_time" value="<%= datainputted.start_time %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>End Time</label>
+              <input type="time" id="end_time" value="<%= datainputted.end_time %>" disabled>
+            </div>
+          </div>
+        </div>
+
+        <div class="mid" style="padding-top: 20px;margin-bottom: 0px;">
+          <div class="top" style="width: 400px; padding-left: 20px;">
+            <span class="title">Facilities Needed</span>
+            <p class="text">Here is the list of facilities you have selected:</p>
+            <ul class="facility-list">
+              <% if (datainventory.auditorium===1) { %>
+                <li><span class="check-symbol">✔</span> <span class="selected-facility">Auditorium</span></li>
+                <% } %>
+                  <% if (datainventory.foodandbeverage===1) { %>
+                    <li><span class="check-symbol">✔</span> <span class="selected-facility">Food and Beverage
+                        Room</span></li>
+                    <% } %>
+                      <% if (datainventory.mainlobby===1) { %>
+                        <li><span class="check-symbol">✔</span> <span class="selected-facility">Main Lobby</span></li>
+                        <% } %>
+                          <% if (datainventory.dancestudio===1) { %>
+                            <li><span class="check-symbol">✔</span> <span class="selected-facility">Dance Studio</span>
+                            </li>
+                            <% } %>
+                              <% if (datainventory.multihall===1) { %>
+                                <li><span class="check-symbol">✔</span> <span class="selected-facility">Multihall</span>
+                                </li>
+                                <% } %>
+                                  <% if (datainventory.gym===1) { %>
+                                    <li><span class="check-symbol">✔</span> <span
+                                        class="selected-facility">Gymnasium</span></li>
+                                    <% } %>
+                                      <% if (datainventory.kitchen===1) { %>
+                                        <li><span class="check-symbol">✔</span> <span
+                                            class="selected-facility">Kitchen</span></li>
+                                        <% } %>
+                                          <% if (datainventory.classroom===1) { %>
+                                            <li><span class="check-symbol">✔</span> <span
+                                                class="selected-facility">Classroom</span></li>
+                                            <% } %>
+            </ul>
+          </div>
+
+          <div class="details personal" style="display: block;">
+            <span class="title">Equipment Needed</span>
+            <p class="text">Here is the list of equipment you have selected:</p>
+            <% if (datainventory.chair === 1 || datainventory.sound_system===1 || datainventory.microphone===1 || datainventory.lcd===1 ||
+              datainventory.widescreen===1) { %>
+              <!-- MIS/IT Section -->
+              <div class="test" style="display: flex; justify-content: space-between">
+                <div class="fields4" style="flex: 1;">
+                  <h3 class="equipment-section">MIS/IT</h3>
+                  <ul class="equipment-list">
+                    <% if (datainventory.chair === 1) { %>
+                      <li class="<%= (datainventory.chair_quantity > totalAvailable_Chair) ? 'highlight-red' : '' %>">
+                        <% if (datainventory.chair_quantity > totalAvailable_Chair) { %>
+                          <span class="warning-symbol"></span>
+                          <span class="selected-equipment highlight-red"> Chair's </span> - <%= datainventory.chair_quantity %> / <%= totalAvailable_Chair %> Available Chair
+                        <% } else { %>
+                          <span class="check-symbol">✔</span>
+                          <span class="selected-equipment"> Chair's </span> - <%= datainventory.chair_quantity %> / <%= totalAvailable_Chair %> Available Chair
+                        <% } %>
+                      </li>
+                    <% } %>
+                    
+                    <% if (datainventory.sound_system === 1) { %>
+                      <li class="<%= (datainventory.sound_system_quantity > totalAvailable_SoundSystem) ? 'highlight-red' : '' %>">
+                        <% if (datainventory.sound_system_quantity > totalAvailable_SoundSystem) { %>
+                          <span class="warning-symbol"></span>
+                          <span class="selected-equipment highlight-red"> Sound System </span> - <%= datainventory.sound_system_quantity %> / <%= totalAvailable_SoundSystem %> Available Sound System
+                        <% } else { %>
+                          <span class="check-symbol">✔</span>
+                          <span class="selected-equipment"> Sound System </span> - <%= datainventory.sound_system_quantity %> / <%= totalAvailable_SoundSystem %> Available Sound System
+                          <% } %>
+                        </li>
+                    <% } %>
+                    
+                    <% if (datainventory.microphone === 1) { %>
+                      <li class="<%= (datainventory.microphone_quantity > totalAvailable_Microphone) ? 'highlight-red' : '' %>">
+                        <% if (datainventory.microphone_quantity > totalAvailable_Microphone) { %>
+                          <span class="warning-symbol"></span>
+                          <span class="selected-equipment highlight-red"> Microphone </span> - <%= datainventory.microphone_quantity %> / <%= totalAvailable_Microphone %> Available Microphone
+                        <% } else { %>
+                          <span class="check-symbol">✔</span>
+                          <span class="selected-equipment"> Microphone </span> - <%= datainventory.microphone_quantity %> / <%= totalAvailable_Microphone %> Available Microphone
+                        <% } %>
+                      </li>
+                    <% } %>
+                    
+                    <% if (datainventory.lcd === 1) { %>
+                      <li class="<%= (datainventory.lcd_quantity > totalAvailable_Lcd) ? 'highlight-red' : '' %>">
+                        <% if (datainventory.lcd_quantity > totalAvailable_Lcd) { %>
+                          <span class="warning-symbol"></span>
+                          <span class="selected-equipment highlight-red"> LCD </span> - <%= datainventory.lcd_quantity%> / <%= totalAvailable_Lcd %> Available LCD
+                        <% } else { %>
+                          <span class="check-symbol">✔</span>
+                          <span class="selected-equipment"> LCD </span> - <%= datainventory.lcd_quantity %> / <%= totalAvailable_Lcd %> Available LCD
+                        <% } %>
+                      </li>
+                    <% } %>
+                    
+                    <% if (datainventory.widescreen === 1) { %>
+                      <li class="<%= (datainventory.widescreen_quantity > totalAvailable_Widescreen) ? 'highlight-red' : '' %>">
+                        <% if (datainventory.widescreen_quantity > totalAvailable_Widescreen) { %>
+                          <span class="warning-symbol"></span>
+                          <span class="selected-equipment highlight-red"> Widescreen </span> - <%= datainventory.widescreen_quantity %> / <%= totalAvailable_Widescreen %> Available Widescreen
+                        <% } else { %>
+                          <span class="check-symbol">✔</span>
+                          <span class="selected-equipment"> Widescreen </span> - <%= datainventory.widescreen_quantity %> / <%= totalAvailable_Widescreen %> Available Widescreen
+                        <% } %>
+                      </li>
+                    <% } %>
+                    
+                    <% if (datainventory.blackpanel_quantity === 1) { %>
+                      <li class="<%= (datainventory.blackpanel_quantity > totalAvailable_Blackpanel) ? 'highlight-red' : '' %>">
+                        <% if (datainventory.blackpanel_quantity > totalAvailable_Blackpanel) { %>
+                          <span class="warning-symbol"></span>
+                          <span class="selected-equipment highlight-red"> Blackpanel </span> - <%= datainventory.blackpanel_quantity %> / <%= totalAvailable_Blackpanel %> Available Blackpanel
+                        <% } else { %>
+                          <span class="check-symbol">✔</span>
+                          <span class="selected-equipment"> Blackpanel </span> - <%= datainventory.blackpanel_quantity %> / <%= totalAvailable_Blackpanel %> Available Blackpanel
+                        <% } %>
+                      </li>
+                    <% } %>
+                    
+                    <% if (datainventory.whiteboard_quantity === 1) { %>
+                      <li class="<%= (datainventory.whiteboard_quantity > totalAvailable_Whiteboard) ? 'highlight-red' : '' %>">
+                        <% if (datainventory.whiteboard_quantity > totalAvailable_Whiteboard) { %>
+                          <span class="warning-symbol"></span>
+                          <span class="selected-equipment highlight-red"> Whiteboard </span> - <%= datainventory.whiteboard_quantity %> / <%= totalAvailable_Whiteboard %> Available Whiteboard
+                        <% } else { %>
+                          <span class="check-symbol">✔</span>
+                          <span class="selected-equipment"> Whiteboard </span> - <%= datainventory.whiteboard_quantity %> / <%= totalAvailable_Whiteboard %> Available Whiteboard
+                        <% } %>
+                      </li>
+                    <% } %>
+                    </ul>
+                    </div>
+              </div>
+              <% } %>
+
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+
+
+  <div class="signature-form">
+    <div class="signature-column">
+      <div class="signature-container">
+        <canvas id="form_signClassroom" width="200" height="150"></canvas>
+        <img id="form_sign_image"
+          src="<%= datainputted.form_signClassroom ? 'data:image/png;base64,' + datainputted.form_signClassroom.toString('base64') : '' %>"
+          alt="Classroom Facilitator">
+      </div>
+      <div class="form_sign">
+        <div id="form_sign_text">Classroom Facilitator</div>
+      </div>
+
+
+      <div class="signature-container">
+        <canvas id="form_sign" width="200" height="150"></canvas>
+        <img id="form_sign_image"
+          src="<%= datainputted.form_sign ? 'data:image/png;base64,' + datainputted.form_sign.toString('base64') : '' %>"
+          alt="Endorsed By">
+      </div>
+      <div class="form_sign">
+        <div id="form_sign_text">Endorsed By</div>
+      </div>
+
+      <div class="signature-container">
+        <canvas id="form_sign4" width="200" height="150"></canvas>
+      </div>
+      <div class="form_sign4">
+        <div id="form_sign4">OSA Approval</div>
+      </div>
+
+      <div class="signature-container">
+        <canvas id="form_sign3" width="200" height="150"></canvas>
+      </div>
+      <div class="form_sign3">
+        <div id="form_sign3">MIS/IT Approval</div>
+      </div>
+    </div>
+
+    <div class="signature-column">
+      <div class="signature-container">
+        <canvas id="form_signHRM" width="200" height="150"></canvas>
+        <img id="form_sign_image"
+          src="<%= datainputted.form_signHRM ? 'data:image/png;base64,' + datainputted.form_signHRM.toString('base64') : '' %>"
+          alt="HRM Approval">
+      </div>
+      <div class="form_sign4">
+        <div id="form_sign4">HRM Custodian</div>
+      </div>
+
+      <div class="signature-container">
+        <canvas id="form_sign2" width="200" height="150"></canvas>
+        <img id="form_sign_image"
+          src="<%= datainputted.form_sign2 ? 'data:image/png;base64,' + datainputted.form_sign2.toString('base64') : '' %>"
+          alt="Venue Approval">
+      </div>
+      <div class="form_sign2">
+        <div id="form_sign2_text">Venue Approval</div>
+      </div>
+
+      <div class="signature-container">
+        <canvas id="form_sign5" width="200" height="150"></canvas>
+      </div>
+      <div class="form_sign5">
+        <div id="form_sign5">Academic Head Approval</div>
+      </div>
+
+      <div class="signature-container">
+        <canvas id="form_sign6" width="200" height="150"></canvas>
+      </div>
+      <div class="form_sign6">
+        <div id="form_sign6">School Administrator Approval</div>
+      </div>
+    </div>
+  </div>
+  </form>
+</body>
+<script>
+  const universalId = <%= universalId %>;
+  document.getElementById('btnBack').addEventListener('click', function () {
+    window.location.href = "/rasa";
+  });
+
+  function formatDate() {
+    const eventDayInput = document.getElementById("event_day");
+    const selectedDate = eventDayInput.value;
+    const dateObject = new Date(selectedDate);
+    const year = dateObject.getFullYear();
+    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObject.getDate()).padStart(2, "0");
+    const formattedDate = `${year}-${month}-${day}`;
+    eventDayInput.value = formattedDate;
+  }
+
+  document.getElementById('btnSubmit').addEventListener('click', function () {
+    console.log("Button clicked!");
+    const rasatesting2 = {
+      user_id: universalId,
+      full_name: document.getElementById('full_name').value,
+      event_name: document.getElementById('event_name').value,
+      event_description: document.getElementById('event_description').value,
+      event_day: document.getElementById('event_day').value,
+      start_time: document.getElementById('start_time').value,
+      end_time: document.getElementById('end_time').value,
+      contact_number: document.getElementById('contact_number').value,
+      requestor_information: document.getElementById('requestor_information').value,
+      requestor_type: document.getElementById('requestor_type').value,
+      participants: document.getElementById('participants').value,
+      required_day: document.getElementById('required_day').value,
+      purpose_objectives: document.getElementById('purpose_objectives').value,
+      endorsed: document.getElementById('endorsed').value,
+      authenticated: 0,
+    };
+    console.log(rasatesting2 + "this is rasatesting2 json");
+
+    fetch("/api/rasatesting2", {
+      method: "POST",
+      body: JSON.stringify(rasatesting2),
+      headers: {
+        "Content-type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        const insertedId = data.id;
+        const inventory = {
+          inventory_id: insertedId,
+          auditorium: document.getElementById('myRadioId')?.checked ? 1 : 0,
+          foodandbeverage: document.getElementById('myRadioId4')?.checked ? 1 : 0,
+          multihall: document.getElementById('myRadioId1')?.checked ? 1 : 0,
+          dancestudio: document.getElementById('myRadioId5')?.checked ? 1 : 0,
+          gym: document.getElementById('myRadioId2')?.checked ? 1 : 0,
+          classroom: document.getElementById('myRadioId3')?.checked ? 1 : 0,
+          kitchen: document.getElementById('myRadioId6')?.checked ? 1 : 0,
+          mainlobby: document.getElementById('myRadioId7')?.checked ? 1 : 0,
+          sound_system: document.getElementById("myRadioId_1")?.checked ? 1 : 0,
+          sound_system_quantity: document.getElementById("sound-system_input")?.value,
+          microphone: document.getElementById("myRadioId_2")?.checked ? 1 : 0,
+          microphone_quantity: document.getElementById("microphone_input")?.value,
+          lcd: document.getElementById("myRadioId_3")?.checked ? 1 : 0,
+          lcd_quantity: document.getElementById("lcd-projector_input")?.value,
+          widescreen: document.getElementById("myRadioId_4")?.checked ? 1 : 0,
+          widescreen_quantity: document.getElementById("wide-screen_input")?.value,
+          chair: document.getElementById("myRadioId-1")?.checked ? 1 : 0,
+          chair_quantity: document.getElementById("chair_input")?.value,
+          table_input: document.getElementById("myRadioId-2")?.checked ? 1 : 0,
+          table_quantity: document.getElementById("table_input")?.value,
+          blackpanel: document.getElementById("myRadioId-3")?.checked ? 1 : 0,
+          blackpanel_quantity: document.getElementById("black-panel_input")?.value,
+          whiteboard: document.getElementById("myRadioId-4")?.checked ? 1 : 0,
+          whiteboard_quantity: document.getElementById("whiteboard_input")?.value,
+          aircon: document.getElementById("myRadioId-6")?.checked ? 1 : 0,
+          start_aircon: document.getElementById("start_time")?.value,
+          end_aircon: document.getElementById("end_time")?.value,
+          other: document.getElementById("myRadioId-7")?.checked ? 1 : 0,
+          other_quantity: document.getElementById("otherInput")?.value,
+        };
+
+        console.log(inventory + "this is rasatesting2_inventory json");
+        fetch("/api/rasatesting2_inventory", {
+          method: "POST",
+          body: JSON.stringify(inventory),
+          headers: {
+            "Content-type": "application/json"
+          }
+        })
+          .then(response => response.json())
+          .then(data => {
+            alert("Your Rasa Submission is successfully submitted!");
+            setTimeout(function () {
+              window.location.href = `/rasaview/${universalId}`;
+            }, 3000);
+          })
+
+      })
+
+  });
+</script>
+
+<script>
+  // form_sign1
+  var canvas = document.getElementById('form_sign');
+  if(canvas){
+  var context = canvas.getContext('2d');
+  var image1 = new Image();
+  image1.src = '<%= datainputted.form_sign ? "data:image/png;base64," + datainputted.form_sign.toString("base64") : "" %>';
+  image1.onload = function () {
+    // Scale the image to fit the canvas while maintaining aspect ratio
+    var scaleFactor = Math.min(canvas.width / image1.width, canvas.height / image1.height);
+    var newWidth = image1.width * scaleFactor;
+    var newHeight = image1.height * scaleFactor;
+    var x = (canvas.width - newWidth) / 2;
+    var y = (canvas.height - newHeight) / 2;
+
+    context.drawImage(image1, x, y, newWidth, newHeight);
+  };
+}
+
+  // form_sign2
+  var canvas2 = document.getElementById('form_sign2');
+  if (canvas2) {
+    var context2 = canvas2.getContext('2d');
+    var image2 = new Image();
+    image2.src = '<%= datainputted.form_sign2 ? "data:image/png;base64," + datainputted.form_sign2.toString("base64") : "" %>';
+    var scaleFactor = Math.min(canvas2.width / image2.width, canvas2.height / image2.height);
+    var newWidth = image2.width * scaleFactor;
+    var newHeight = image2.height * scaleFactor;
+    var x = (canvas2.width - newWidth) / 2;
+    var y = (canvas2.height - newHeight) / 2;
+
+    context2.drawImage(image2, x, y, newWidth, newHeight);
+  };
+
+  var canvasClassroom = document.getElementById('form_signClassroom');
+  if(canvasClassroom){
+  var contextClassroom = canvasClassroom.getContext('2d');
+  var imageClassroom = new Image();
+  imageClassroom.src = '<%= datainputted.form_signClasroom ? "data:image/png;base64," + datainputted.form_signClasroom.toString("base64") : "" %>';
+  imageClassroom.onload = function () {
+    // Scale the image to fit the canvas while maintaining aspect ratio
+    var scaleFactor = Math.min(canvasClassroom.width / imageClassroom.width, imageClassroom.height / imageClassroom.height);
+    var newWidth = imageClassroom.width * scaleFactor;
+    var newHeight = imageClassroom.height * scaleFactor;
+    var x = (canvasClassroom.width - newWidth) / 2;
+    var y = (canvasClassroom.height - newHeight) / 2;
+
+    contextClassroom.drawImage(imageClassroom, x, y, newWidth, newHeight);
+  };
+}
+
+  var canvasHRM = document.getElementById('form_signHRM');
+  if(canvasHRM){
+  var contextHRM = canvasHRM.getContext('2d');
+  var imageHRM = new Image();
+  imageHRM.src = '<%= datainputted.form_signHRM ? "data:image/png;base64," + datainputted.form_signHRM.toString("base64") : "" %>';
+  imageHRM.onload = function () {
+    // Scale the image to fit the canvas while maintaining aspect ratio
+    var scaleFactor = Math.min(canvasHRM.width / imageHRM.width, imageHRM.height / imageHRM.height);
+    var newWidth = imageHRM.width * scaleFactor;
+    var newHeight = imageHRM.height * scaleFactor;
+    var x = (canvasHRM.width - newWidth) / 2;
+    var y = (canvasHRM.height - newHeight) / 2;
+
+    contextHRM.drawImage(imageHRM, x, y, newWidth, newHeight);
+  };
+}
+</script>
+</body>
+
+</html>

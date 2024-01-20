@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inventory Table</title>
+  <style>
+    /* Add your CSS styles here */
+    .event-table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 40px;
+      /* Add spacing between tables */
+    }
+
+    .event-table th,
+    .event-table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+      width: 150px;
+      /* Fix the table row width */
+    }
+
+    .event-table th {
+      background-color: #f2f2f2;
+    }
+
+    select {
+      padding: 5px;
+    }
+
+    .event-table caption {
+      font-weight: bold;
+      margin-bottom: 10px;
+      /* Add spacing between table caption and table */
+    }
+
+    .expand-button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .expand-content {
+      display: none;
+      padding: 10px;
+      background-color: #f2f2f2;
+      width: 100%;
+    }
+
+    .expand-content ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .expand-content ul li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Inventory Table</h1>
+
+  <div id="remainingChairValue"></div>
+  <div>
+    <label for="month">Select Month:</label>
+    <select id="month">
+      <option value="01">January</option>
+      <option value="02">February</option>
+      <option value="03">March</option>
+      <option value="04">April</option>
+      <option value="05">May</option>
+      <option value="06">June</option>
+      <option value="07">July</option>
+      <option value="08">August</option>
+      <option value="09">September</option>
+      <option value="10">October</option>
+      <option value="11">November</option>
+      <option value="12">December</option>
+    </select>
+
+    <label for="year">Select Year:</label>
+    <select id="year">
+      <option value="2023">2023</option>
+      <option value="2024">2024</option>
+      <option value="2025">2025</option>
+      <option value="2026">2026</option>
+      <option value="2027">2027</option>
+      <option value="2028">2028</option>
+      <option value="2029">2029</option>
+      <option value="2030">2030</option>
+      <option value="2031">2031</option>
+      <!-- Add more years -->
+    </select>
+    <label for="start_time">Start Time:</label>
+    <input type="time" id="start_time" required>
+
+    <label for="end_time">End Time:</label>
+    <input type="time" id="end_time" required>
+    <button onclick="fetchData()">Fetch Data</button>
+  </div>
+  <div id="noDataMessage" style="display: none; color: red;">No data found.</div>
+
+  <div id="tableContainer">
+    <!-- Tables will be created here -->
+  </div>
+
+  <script>
+    async function fetchData() {
+      const month = document.getElementById("month").value;
+      const year = document.getElementById("year").value;
+      const start_time = document.getElementById("start_time").value;
+      const end_time = document.getElementById("end_time").value;
+
+      // Fetch data from calendar_input
+      const calendarUrl = `http://154.41.254.18:3006/fetch-calendar?month=${month}&year=${year}`;
+      const calendarResponse = await fetch(calendarUrl);
+      const calendarData = await calendarResponse.json();
+      // Fetch latest row from inventory_max
+      const inventoryMaxUrl = `http://154.41.254.18:3006/fetch-inventory-max`;
+      const inventoryMaxResponse = await fetch(inventoryMaxUrl);
+      const inventoryMaxData = await inventoryMaxResponse.json();
+
+      console.log(calendarData);
+      console.log(inventoryMaxData);
+
+      const eventDataByDate = {};
+
+      calendarData.forEach(function (row) {
+        const eventDate = formatDate(row.event_day);
+        if (!eventDataByDate[eventDate]) {
+          eventDataByDate[eventDate] = [];
+        }
+        eventDataByDate[eventDate].push(row);
+      });
+
+      // Sort dates
+      const sortedDates = Object.keys(eventDataByDate).sort((a, b) => new Date(a) - new Date(b));
+
+      const tableContainer = document.getElementById("tableContainer");
+      tableContainer.innerHTML = "";
+
+      for (const eventDate of sortedDates) {
+        const eventDateData = eventDataByDate[eventDate];
+
+        const table = document.createElement("table");
+        table.classList.add("event-table");
+
+        const thead = document.createElement("thead");
+        const headerRow = document.createElement("tr");
+        const headerColumns = [
+          "Date",
+          "Event ID",
+          "Event Name",
+          "Required Date",
+          "Facilities Needed",
+          "MIS/IT",
+          "Bag",
+          "Max Equipment"
+        ];
+        headerColumns.forEach(function (column) {
+          const th = document.createElement("th");
+          th.textContent = column;
+          headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement("tbody");
+        eventDateData.forEach(function (row) {
+          const newRow = tbody.insertRow();
+
+          const eventDayCell = newRow.insertCell();
+          eventDayCell.textContent = formatDate(row.event_day);
+
+          const eventIdCell = newRow.insertCell();
+          eventIdCell.textContent = row.id;
+
+          const event_name = newRow.insertCell();
+          const eventNameDiv = document.createElement("div");
+          eventNameDiv.textContent = row.event_name;
+
+          const eventRequiredDate = newRow.insertCell();
+          eventRequiredDate.textContent = row.required_day;
+
+          const eventDescriptionDiv = document.createElement('div');
+          const eventDescriptionText = document.createElement('span');
+          eventDescriptionText.textContent = row.event_description;
+          eventDescriptionText.style.fontWeight = 'bold';
+
+          eventDescriptionDiv.appendChild(eventDescriptionText);
+          event_name.appendChild(eventNameDiv);
+          event_name.appendChild(eventDescriptionDiv);
+
+          const facilitiesCell = newRow.insertCell();
+          facilitiesCell.textContent = "";
+
+          if (row.auditorium === 1) {
+            facilitiesCell.textContent += "Auditorium, ";
+          }
+          if (row.foodandbeverage === 1) {
+            facilitiesCell.textContent += "Food and Beverage, ";
+          }
+          if (row.multihall === 1) {
+            facilitiesCell.textContent += "Multihall, ";
+          }
+          if (row.dancestudio === 1) {
+            facilitiesCell.textContent += "Dance Studio, ";
+          }
+          if (row.gym === 1) {
+            facilitiesCell.textContent += "Gym, ";
+          }
+          if (row.classroom === 1) {
+            facilitiesCell.textContent += "Classroom, ";
+          }
+          if (row.kitchen === 1) {
+            facilitiesCell.textContent += "Kitchen, ";
+          }
+          if (row.mainlobby === 1) {
+            facilitiesCell.textContent += "Main Lobby, ";
+          }
+
+          const quantitiesCell = newRow.insertCell();
+          const quantitiesList = document.createElement("ul");
+
+          if (row.sound_system_quantity !== null) {
+            const listItem = document.createElement("li");
+            listItem.textContent = "Sound Quantity: " + row.sound_system_quantity;
+            quantitiesList.appendChild(listItem);
+          }
+          if (row.microphone_quantity !== null) {
+            const listItem = document.createElement("li");
+            listItem.textContent = "Microphone Quantity: " + row.microphone_quantity;
+            quantitiesList.appendChild(listItem);
+          }
+          if (row.lcd_quantity !== null) {
+            const listItem = document.createElement("li");
+            listItem.textContent = "LCD Quantity: " + row.lcd_quantity;
+            quantitiesList.appendChild(listItem);
+          }
+          if (row.widescreen_quantity !== null) {
+            const listItem = document.createElement("li");
+            listItem.textContent = "Widescreen Quantity: " + row.widescreen_quantity;
+            quantitiesList.appendChild(listItem);
+          }
+
+          quantitiesCell.appendChild(quantitiesList);
+
+          const quantitiesCell2 = newRow.insertCell();
+          const quantitiesList2 = document.createElement("ul");
+
+          if (row.chair_quantity !== null) {
+            const listItem = document.createElement("li");
+            listItem.textContent = "Chair Quantity: " + row.chair_quantity;
+            quantitiesList2.appendChild(listItem);
+          }
+          if (row.table_quantity !== null) {
+            const listItem = document.createElement("li");
+            listItem.textContent = "Table Quantity: " + row.table_quantity;
+            quantitiesList2.appendChild(listItem);
+          }
+          if (row.blackpanel_quantity !== null) {
+            const listItem = document.createElement("li");
+            listItem.textContent = "Black Panel Quantity: " + row.blackpanel_quantity;
+            quantitiesList2.appendChild(listItem);
+          }
+          if (row.whiteboard_quantity !== null) {
+            const listItem = document.createElement("li");
+            listItem.textContent = "Whiteboard Quantity: " + row.whiteboard_quantity;
+            quantitiesList2.appendChild(listItem);
+          }
+          if (row.other_quantity !== null) {
+            const listItem = document.createElement("li");
+            listItem.textContent = "Other Quantity: " + row.other_quantity;
+            quantitiesList2.appendChild(listItem);
+          }
+
+          quantitiesCell2.appendChild(quantitiesList2);
+
+          const maxInventoryCell = newRow.insertCell();
+          const maxInventoryList = document.createElement("ul");
+
+            // Populate Max Inventory values
+  maxInventoryList.innerHTML = `
+    <li>Sound System: ${inventoryMaxData.sound_system_max}</li>
+    <li>Table: ${inventoryMaxData.table_max}</li>
+    <li>Chairs: ${inventoryMaxData.chairs_max}</li>
+    <li>LCD: ${inventoryMaxData.lcd_max}</li>
+    <li>Microphone: ${inventoryMaxData.microphone_max}</li>
+    <li>Whiteboard: ${inventoryMaxData.whiteboard_max}</li>
+    <li>Widescreen: ${inventoryMaxData.widescreen_max}</li>
+    <li>Black Panel: ${inventoryMaxData.blackpanel_max}</li>
+  `;
+
+  maxInventoryCell.appendChild(maxInventoryList);
+
+        });
+        table.appendChild(tbody);
+        const caption = table.createCaption();
+        caption.textContent = eventDate;
+        createExpandButton(table, eventDateData);
+        tableContainer.appendChild(table);
+      }
+
+      const noDataMessage = document.getElementById("noDataMessage");
+      if (Object.keys(eventDataByDate).length === 0) {
+        noDataMessage.style.display = "block";
+      } else {
+        noDataMessage.style.display = "none";
+      }
+
+      // Subtract summed up chair values from inventory_max.chairs_max
+      const totalChairSum = calculateTotalChairSum(calendarData);
+      const remainingChair = inventoryMaxData.chairs_max - totalChairSum;
+
+      // Display the remaining chairs in your HTML
+      const remainingChairValueElement = document.getElementById("remainingChairValue");
+      remainingChairValueElement.textContent = remainingChair;
+    }
+    function getMaxEquipmentValue(row, inventoryMaxData) {
+      const maxEquipmentValue = inventoryMaxData ? inventoryMaxData.max_equipment : '';
+      return maxEquipmentValue;
+    }
+
+    function calculateTotalChairSum(eventDateData) {
+      let totalChairSum = 0;
+      eventDateData.forEach((row) => {
+        totalChairSum += row.chair_quantity || 0;
+      });
+      return totalChairSum;
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      if (!isNaN(date)) {
+        const options = { year: "numeric", month: "long", day: "numeric" };
+        return date.toLocaleDateString(undefined, options);
+      } else {
+        return "Invalid Date";
+      }
+    }
+    function createExpandButton(table, eventDateData) {
+      const expandButton = document.createElement("button");
+      expandButton.textContent = "Expand";
+      expandButton.classList.add("expand-button");
+      const expandContent = document.createElement("div");
+      expandContent.classList.add("expand-content");
+      const totalEquipmentQuantities = calculateTotalEquipmentQuantities(eventDateData);
+      const equipmentList = document.createElement("ul");
+
+      // MIS Equipment
+      addEquipmentSection(equipmentList, "MIS Equipment", totalEquipmentQuantities, ["sound_system", "microphone", "lcd", "widescreen"]);
+
+      // BAG Equipment
+      addEquipmentSection(equipmentList, "BAG Equipment", totalEquipmentQuantities, ["chairs", "tables", "blackpanel", "whiteboard", "other"]);
+      expandContent.appendChild(equipmentList);
+      expandButton.addEventListener("click", () => {
+        if (expandContent.style.display === "block") {
+          expandContent.style.display = "none";
+        } else {
+          expandContent.style.display = "block";
+        }
+      });
+      const headerRow = table.querySelector("thead tr");
+      if (headerRow) {
+        const th = document.createElement("th");
+        th.appendChild(expandButton);
+        headerRow.appendChild(th);
+      }
+      table.appendChild(expandContent);
+    }
+    function addEquipmentSection(equipmentList, title, quantities, keys) {
+      const equipmentItem = document.createElement("li");
+      equipmentItem.textContent = `TITLE: ${title}`;
+      const quantitiesList = document.createElement("ul");
+      keys.forEach((key) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `${key}: ${quantities[key]}`;
+        quantitiesList.appendChild(listItem);
+      });
+      equipmentItem.appendChild(quantitiesList);
+      equipmentList.appendChild(equipmentItem);
+    }
+    function calculateTotalEquipmentQuantities(eventDateData) {
+      let totalEquipmentQuantities = {
+        sound_system: 0,
+        microphone: 0,
+        lcd: 0,
+        widescreen: 0,
+
+        chairs: 0,
+        tables: 0,
+        blackpanel: 0,
+        whiteboard: 0,
+        other: 0,
+      };
+
+      eventDateData.forEach((row) => {
+        // MIS 
+        totalEquipmentQuantities.sound_system += row.sound_system_quantity || 0;
+        totalEquipmentQuantities.microphone += row.microphone_quantity || 0;
+        totalEquipmentQuantities.lcd += row.lcd_quantity || 0;
+        totalEquipmentQuantities.widescreen += row.widescreen_quantity || 0;
+
+        // BAG
+        totalEquipmentQuantities.chairs += row.chair_quantity || 0;
+        totalEquipmentQuantities.tables += row.table_quantity || 0;
+        totalEquipmentQuantities.blackpanel += row.blackpanel_quantity || 0;
+        totalEquipmentQuantities.whiteboard += row.whiteboard_quantity || 0;
+      });
+      return totalEquipmentQuantities;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Dashboard - Home - Sample</title>
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  </head>
+  <body id="hometab">
+    <div class="wrapper">
+      <nav class="sidebar">
+        <div class="navbar">
+        <h1 id="homepagetext"><span id="menu" class="material-symbols-outlined">menu</span>Dashboard Admin</h1>
+          <ul id="list">
+              <li>
+              <a href="#"><span class="material-symbols-outlined">home</span>
+                <h4>Home</h4>
+              </a>
+            </li>
+            <li>
+              <a href="/dashboardAdmin"><span class="material-symbols-outlined">event_note</span>
+                <h4>Schedule</h4>
+              </a>
+            </li>
+          
+            <li>
+              <a href="/userview"><span class="material-symbols-outlined">person</span>
+                <h4>Manage Users</h4>
+              </a>
+            </li>
+
+            <li>
+              <a href="/rasaview"><span class="material-symbols-outlined">list_alt</span>
+                <h4>RASA Status</h4>
+              </a>
+            </li>
+
+            <li>
+              <a href="/inventory"><span class="material-symbols-outlined">list_alt</span>
+                <h4>Inventory</h4>
+              </a>
+            </li>
+
+            <li>
+              <a href="/logout"><span class="material-symbols-outlined">logout</span>
+                <h4>Logout</h4>
+              </a>
+            </li> 
+          </ul>
+        </div>
+      </nav>    
+    </div>
+    <div class="mainscreen"> 
+    <iframe src="rasa" width="98%" height="100%" frameBorder="0" style="float: right;"></iframe>
+    </div>
+  <script src="js/accesor.js">listItems[3].classList.add("highlight");</script>
+  </body>
+</html> 

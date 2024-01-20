@@ -1,0 +1,87 @@
+const db1 = require("../routes/rasa-db");
+
+const rasa_signature = async (req, res) => {
+  const { number, email, id } = req.body;
+
+  console.log("----------------------");
+  console.log("rasa_signature.js controller");
+  console.log("Received data:", "number:", number, ": email", email, ": id", id);
+  
+  const emailReq = req.body.email;
+  const email1 = emailReq.trim();
+
+  let number1 = parseInt(number, 10);
+  console.log(number1, "A")
+
+  var numberForm = [
+    [31, "form_signClassroom"], // Classroom Facilitator Form
+    [30, "form_signClassroom"], // Classroom Facilitator Form
+    [21, "form_signHRM"], // HRM Custodian Form
+    [1, "form_sign"],
+    [2, "form_sign2"],
+    [3, "form_sign3"],
+    [4, "form_sign4"],
+    [5, "form_sign5"],
+  ];
+  const x = numberForm.find(item => item[0] === number1);
+  let finalNumber;
+  if (x) {
+    console.log("Final Number:", x[1]);
+    finalNumber = x[1];
+  } else {
+    console.log("Number not found in the mapping");
+  }
+  var accounts = [
+    ["baruc.231345@globalcity.sti.edu.ph", 7],
+    ["baruc.231345@globalcity.sti.edu.ph", 8],
+    ["rodillas.222275@globalcity.sti.edu.ph", 9],
+    ["lopez.195633@globalcity.sti.edu.ph", 16], // HRM Signature
+    ["magistrado.222133@globalcity.sti.edu.ph", 17], // Classroom Signature
+    ["no email",13] // Void Rasa
+  ];
+
+  const y = accounts.find(item => item && item[0].trim() === email1);
+
+  let finalEmail;
+  if (y) {
+    console.log("Final Email:", y[1]);
+    finalEmail = y[1];
+  } else {
+    const confirmation = confirm("Email not found.");
+    if (confirmation) {
+        throw { status: 404, redirectTo: '/logout' };
+        //finalEmail = "baruc.231345@globalcity.sti.edu.ph"
+    }
+}
+  console.log("Final Number", finalNumber);
+  console.log("Final Email", finalEmail);
+
+  try {
+    db1.query(
+      `UPDATE inputted_table SET ${finalNumber} = 
+      (SELECT form_sign FROM signature_table2 WHERE id = ?) WHERE id = ?`,
+      [finalEmail, id],
+      (error, results) => {
+        if (error) {
+          console.error(error);
+          res.status(500).json({
+            status: "error",
+            error: `Error updating ${finalNumber} in inputted_table.`,
+          });
+        } else {
+          res.json({
+            status: "success",
+            message: `${finalNumber} updated successfully.`,
+          });
+        }
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ status: "error", error: "Internal server error." });
+  }
+};
+
+module.exports = rasa_signature;

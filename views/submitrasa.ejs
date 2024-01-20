@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/rasa.css">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>Summary Rasa Form</header>
+    <form name="myForm" onsubmit="return false;" id="form">
+      <div class="form first">
+        <div class="details personal">
+          <span class="title">Personal Details</span>
+
+          <div class="fields1">
+            <div class="input-field">
+              <label>Full Name</label>
+              <input type="text" id="full_name" value="<%= datainputted.full_name %>" disabled maxlength="50">
+            </div>
+
+            <div class="input-field">
+              <label>Student Employee</label>
+              <input type="text" id="user_id" value= "<%= datainputted.user_id %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Contact Number </label>
+              <input type="text" id="contact_number" value="<%= datainputted.contact_number %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Requestor Information</label>
+              <input type="text" id="requestor_information" value="<%= datainputted.requestor_information %>" disabled>
+            </div>
+
+            <div class="input-field" style="width: 380px;">
+              <label>Requestor Type </label>
+              <input type="text" id="requestor_type" value="<%= datainputted.requestor_type %>" disabled>
+            </div>
+
+            <% if (datainputted.requestor_information==="Student" ||
+              datainputted.requestor_information==="Student Leader" || datainputted.requestor_information==="Teacher") { %>
+              <div class="input-field">
+                <label>Endorsed by</label>
+                <input type="text" id="endorsed" value="<%= datainputted.endorsed %>" disabled>
+              </div>
+              <% } %>
+
+          </div>
+        </div>
+      </div>
+      <div class="form second">
+        <div class="details personal">
+          <span class="title">Event Information</span>
+
+          <div class="fields2">
+            <div class="input-field">
+              <label>Event Name</label>
+              <input type="text" id="event_name" value="<%= datainputted.event_name %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Event Date/Day</label>
+              <% const eventDate=new Date(datainputted.event_day); %>
+                <% const formattedDateString=`${eventDate.getFullYear()}-${String(eventDate.getMonth() +
+                  1).padStart(2, '0' )}-${String(eventDate.getDate()).padStart(2, '0' )}`; %>
+                  <input type="date" id="event_day" value="<%= formattedDateString %>" onchange="formatDate()" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Event Description</label>
+              <input type="text" id="event_description" value="<%= datainputted.event_description %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Expected Participants</label>
+              <input type="number" id="participants" value="<%= datainputted.participants %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Purpose/Objective</label>
+              <input type="text" id="purpose_objectives" value="<%= datainputted.purpose_objectives %>" disabled>
+            </div>
+
+            <div class="input-field" style="width: 380px;">
+              <label>Required days of Facility</label>
+              <input type="text" id="required_day" value="<%= datainputted.required_day %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Start Time</label>
+              <input type="time" id="start_time" value="<%= datainputted.start_time %>" disabled>
+            </div>
+
+            <div class="input-field"> 
+              <label>End Time</label>
+              <input type="time" id="end_time" value="<%= datainputted.end_time %>" disabled>
+            </div>
+          </div>
+        </div>
+
+        <div class="mid">
+          <div class="top" style="width: 400px; padding-left: 20px;">
+            <span class="title">Facilities Needed</span>
+            <p class="text">Here is the list of facilities you have selected:</p>
+
+            <ul class="facility-list" style="list-style-type: none;">
+              <% if (datainventory.auditorium===1) { %>
+                <li><span class="check-symbol">✔</span> <span class="selected-facility">Auditorium</span></li>
+                <% } %>
+                  <% if (datainventory.foodandbeverage===1) { %>
+                    <li><span class="check-symbol">✔</span> <span class="selected-facility">Food and Beverage
+                        Room</span></li>
+                    <% } %>
+                      <% if (datainventory.mainlobby===1) { %>
+                        <li><span class="check-symbol">✔</span> <span class="selected-facility">Main Lobby</span></li>
+                        <% } %>
+                          <% if (datainventory.dancestudio===1) { %>
+                            <li><span class="check-symbol">✔</span> <span class="selected-facility">Dance Studio</span>
+                            </li>
+                            <% } %>
+                              <% if (datainventory.multihall===1) { %>
+                                <li><span class="check-symbol">✔</span> <span class="selected-facility">Multihall</span>
+                                </li>
+                                <% } %>
+                                  <% if (datainventory.gym===1) { %>
+                                    <li><span class="check-symbol">✔</span> <span
+                                        class="selected-facility">Gymnasium</span></li>
+                                    <% } %>
+                                      <% if (datainventory.kitchen===1) { %>
+                                        <li><span class="check-symbol">✔</span> <span
+                                            class="selected-facility">Kitchen</span></li>
+                                        <% } %>
+                                          <% if (datainventory.classroom===1) { %>
+                                            <li><span class="check-symbol">✔</span> <span
+                                                class="selected-facility">Classroom: <%= datainventory.classroom_number
+                                                  %></span></li>
+                                            <% } %>
+            </ul>
+          </div>
+
+          <div class="details personal">
+            <span class="title">Equipment Needed</span>
+            <p class="text">Here is the list of equipment you have selected:</p>
+
+            <% if (datainventory.sound_system===1 || datainventory.microphone===1 || datainventory.lcd===1 ||
+              datainventory.widescreen===1) { %>
+              <!-- MIS/IT Section -->
+              <h3 class="equipment-section">MIS/IT</h3>
+              <ul class="equipment-list">
+                <% if (datainventory.sound_system === 1 && datainventory.sound_system_quantity > 0) { %>
+                  <li id="sound_system" class="<%= (datainventory.sound_system_quantity > eventResults.availableSoundsystem) ? 'highlight-red' : '' %>">
+                    <span class="check-symbol <%= (datainventory.sound_system_quantity > eventResults.availableSoundsystem) ? 'warning-symbol' : '' %>">✔</span>
+                    <span class="selected-equipment">Sound System</span> - <%= datainventory.sound_system_quantity %> / <%= eventResults.availableSoundsystem %> Available Sound System
+                  </li>
+                <% } %>
+                
+                <% if (datainventory.microphone === 1 && datainventory.microphone_quantity > 0) { %>
+                  <li class="<%= (datainventory.microphone_quantity > eventResults.availableMicrophone) ? 'highlight-red' : '' %>">
+                    <span class="check-symbol <%= (datainventory.microphone_quantity > eventResults.availableMicrophone) ? 'warning-symbol' : '' %>">✔</span>
+                    <span class="selected-equipment">Microphone</span> - <%= datainventory.microphone_quantity %> / <%= eventResults.availableMicrophone %> Available Microphone
+                  </li>
+                <% } %>
+
+                        <% if (datainventory.lcd===1 && datainventory.lcd_quantity> 0) { %>
+                          <li class="<%= (datainventory.lcd_quantity > eventResults.availableLcd) ? 'highlight-red' : '' %>">
+                            <span class="check-symbol <%= (datainventory.lcd_quantity > eventResults.availableLcd) ? 'warning-symbol' : '' %>">✔</span>
+                            <span class="selected-equipment"> LCD's </span> - <%= datainventory.lcd_quantity %> / <%= eventResults.availableLcd   %> Available LCD's
+                          </li>
+                          <% } %>
+
+                            <% if (datainventory.widescreen===1 && datainventory.widescreen_quantity> 0) { %>
+                              <li class="<%= (datainventory.widescreen_quantity > eventResults.availableWidescreen) ? 'highlight-red' : '' %>">
+                                <span class="check-symbol <%= (datainventory.widescreen_quantity > eventResults.availableWidescreen) ? 'warning-symbol' : '' %>">✔</span>
+                                <span class="selected-equipment"> Widescreens </span> - <%= datainventory.widescreen_quantity %> / <%= eventResults.availableWidescreen   %> Available Widescreens
+                              </li>
+                              <% } %>
+              </ul>
+              <% } %>
+                <% if (datainventory.chair===1 || datainventory.table_input===1 || datainventory.blackpanel===1 ||
+                  datainventory.whiteboard===1 || datainventory.aircon===1 || datainventory.other===1) { %>
+                  <div class="fields5">
+                    <h3 class="equipment-section">Bag</h3>
+                    <ul class="equipment-list">
+                      <% if (datainventory.chair===1) { %>
+                        <li class="<%= (datainventory.chair_quantity > eventResults.availableChairs) ? 'highlight-red' : '' %>">
+                          <span class="check-symbol <%= (datainventory.chair_quantity > eventResults.availableChairs) ? 'warning-symbol' : '' %>">✔</span>
+                          <span class="selected-equipment"> Chairs </span> - <%= datainventory.chair_quantity %> / <%= eventResults.availableChairs %> Available Chairs
+                        </li>
+                        <% } %>
+                          <% if (datainventory.table_input===1) { %>
+                            <li class="<%= (datainventory.table_quantity > eventResults.availableTables) ? 'highlight-red' : '' %>">
+                              <span class="check-symbol <%= (datainventory.table_quantity > eventResults.availableTables) ? 'warning-symbol' : '' %>">✔</span>
+                              <span class="selected-equipment">Tables</span> - <%= datainventory.table_quantity %>  / <%= eventResults.availableTables %> Available Tables
+                            </li>
+                            <% } %>
+                              <% if (datainventory.blackpanel===1) { %>
+                                <li class="<%= (datainventory.blackpanel_quantity > eventResults.availableBlackpanel) ? 'highlight-red' : '' %>">
+                                  <span class="check-symbol <%= (datainventory.blackpanel_quantity > eventResults.availableBlackpanel) ? 'warning-symbol' : '' %>">✔</span>
+                                  <span class="selected-equipment">Black Panel</span> - <%= datainventory.blackpanel_quantity %> / <%= eventResults.availableBlackpanel %> Available Blackpanel
+                                </li>
+                                <% } %>
+                                  <% if (datainventory.whiteboard===1) { %>
+                                    <li class="<%= (datainventory.whiteboard_quantity > eventResults.availableWhiteboard) ? 'highlight-red' : '' %>">
+                                      <span class="check-symbol <%= (datainventory.whiteboard_quantity > eventResults.availableWhiteboard) ? 'warning-symbol' : '' %>">✔</span>
+                                      <span class="selected-equipment">Whiteboard</span> - <%= datainventory.whiteboard_quantity %>  / <%= eventResults.availableWhiteboard %> Available Whiteboard
+                                    </li>
+                                    <% } %>
+                                      <% if (datainventory.aircon===1) { %>
+                                        <li><span class="check-symbol">✔</span> <span class="selected-equipment">Aircon
+                                            Time</span> - <%= datainventory.start_aircon %> To <%= datainventory.end_aircon %>
+                                        </li>
+                                        <% } %>
+                                          <% if (datainventory.other===1) { %>
+                                            <li><span class="check-symbol">✔</span> <span
+                                                class="selected-equipment">Other: <%= datainventory.other_quantity %>
+                                              </span></li>
+                                            <% } %>
+                    </ul>
+                  </div>
+                  <% } %>
+          </div>
+        </div>
+        <div class="buttons">
+          <button type="button" id="btnBack">Back</button>
+          <button type="submit" id="btnSubmit">Submit</button>
+        </div>
+      </div>
+
+
+    </form>
+</body>
+<script>
+  const universalId = <%= universalId %>;
+
+  if (universalId == null || universalId == '') {
+    // Redirect to the logout page
+    window.location.href = "/logout";
+  }
+  document.getElementById('btnBack').addEventListener('click', function () {
+    window.location.href = "/rasa";
+  });
+
+  function formatDate() {
+    const eventDayInput = document.getElementById("event_day");
+    const selectedDate = eventDayInput.value;
+    const dateObject = new Date(selectedDate + 'T00:00:00Z'); // Set time to midnight in UTC
+    const year = dateObject.getUTCFullYear();
+    const month = String(dateObject.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(dateObject.getUTCDate()).padStart(2, "0");
+    const formattedDate = `${year}-${month}-${day}`;
+    eventDayInput.value = formattedDate;
+  }
+
+  document.getElementById('btnSubmit').addEventListener('click', function () {
+    console.log("Button clicked!");
+    console.log(required_day.value )
+    console.log(end_time.value)
+    console.log(start_time.value)
+
+    if ( required_day.value === 1 && new Date("1970-01-01 " + end_time.value) > new Date("1970-01-01 " + start_time.value)) {
+    alert("End time cannot be greater than start time when pending is 1.");
+  }
+    if (<%= datainventory.chair %> === 1 && <%=  datainventory.chair_quantity %> > <%= eventResults.availableChairs %>) {
+      alert('Error: Selected chair quantity is greater than available chairs.');
+      return;
+    }
+
+    if (<%= datainventory.table_input %> === 1 && <%= datainventory.table_quantity %> > <%= eventResults.availableTables %>) {
+      alert('Error: Selected table quantity is greater than available tables.');
+      return;
+    }
+
+    if (<%= datainventory.sound_system %> === 1 && <%= datainventory.sound_system_quantity %> > <%= eventResults.availableSoundsystem %>) {
+      alert('Error: Selected Sound System quantity is greater than available Sound System.');
+      return;
+    }
+
+    if (<%= datainventory.microphone %> === 1 && <%= datainventory.microphone_quantity %> > <%= eventResults.availableMicrophone %>) {
+      alert('Error: Selected Microphone quantity is greater than available Microphone.');
+      return;
+    }
+
+    if (<%= datainventory.lcd %> === 1 && <%= datainventory.lcd_quantity %> > <%= eventResults.availableLcd %>) {
+      alert('Error: Selected LCD quantity is greater than available LCD.');
+      return;
+    }
+
+ 
+    if ( <%= datainventory.widescreen %> === 1 && <%= datainventory.widescreen_quantity %> > <%= eventResults.availableWidescreen %>) {
+      alert('Error: Selected Wide Screen is greater than available Screen.');
+      return;
+    }
+
+    if ( <%= datainventory.whiteboard %> === 1 && <%= datainventory.whiteboard_quantity %> > <%= eventResults.availableWhiteboard %>) {
+      alert('Error: Selected Whiteboard is greater than available Whiteboard.');
+      return;
+    }
+    
+
+    const inventory2 = {
+      auditorium: <%= datainventory.auditorium || 0 %>,
+      foodandbeverage: <%= datainventory.foodandbeverage || 0 %>,
+      mainlobby: <%= datainventory.mainlobby || 0 %>,
+      dancestudio: <%= datainventory.dancestudio || 0 %>,
+      multihall: <%= datainventory.multihall || 0 %>,
+      gym: <%= datainventory.gym || 0 %>,                              
+      kitchen: <%= datainventory.kitchen || 0 %>,
+      classroom: <%= datainventory.classroom || 0 %>
+      };
+
+
+    const rasatesting2 = {
+      user_id: universalId,
+      full_name: document.getElementById('full_name').value,
+      event_name: document.getElementById('event_name').value,
+      event_description: document.getElementById('event_description').value,
+      event_day: document.getElementById('event_day').value,
+      start_time: document.getElementById('start_time').value,
+      end_time: document.getElementById('end_time').value,
+      contact_number: document.getElementById('contact_number').value,
+      requestor_information: document.getElementById('requestor_information').value,
+      requestor_type: document.getElementById('requestor_type').value,
+      participants: document.getElementById('participants').value,
+      required_day: document.getElementById('required_day').value,
+      purpose_objectives: document.getElementById('purpose_objectives').value,
+      endorsed: document.getElementById('endorsed')?.value ?? "N/A",
+      authenticated: 0,
+      ...inventory2,
+    };
+    console.log("rasatesting2:", JSON.stringify(rasatesting2));
+
+    fetch("/api/rasatesting2", {
+      method: "POST",
+      body: JSON.stringify(rasatesting2),
+      headers: {
+        "Content-type": "application/json"
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Error processing Rasa form. Please try again.");
+          window.location.href = '/logout';
+        }
+        return response.json();
+      })
+      .then(data => {
+        const insertedId = data.id;
+        console.log(insertedId + " submitrasa.ejs line 275");
+  
+        if (data.status === 'aborted') {
+          alert(data.error);
+          return;  // Stop execution here to prevent rasatesting2_inventory call
+        }
+
+        else if(data.status === "duplicated") {
+          alert(data.error2); 
+          return;
+        }
+
+        const sound_system_quantity = <%= datainventory.sound_system_quantity || 0 %>;
+        const microphone_quantity = <%= datainventory.microphone_quantity || 0 %>;
+        const lcd_quantity = <%= datainventory.lcd_quantity || 0 %>;
+        const widescreen_quantity = <%= datainventory.widescreen_quantity || 0 %>;
+
+        const chair_quantity = <%= datainventory.chair_quantity || 0 %>;
+        const table_quantity = <%= datainventory.table_quantity || 0 %>;
+        const blackpanel_quantity = <%= datainventory.blackpanel_quantity || 0 %>;
+        const whiteboard_quantity = <%= datainventory.whiteboard_quantity || 0 %>;
+        const aircon = <%= datainventory.aircon || 0 %>;
+        const start_aircon = '<%= datainventory.start_aircon || "0:00:00" %>';
+        const end_aircon = '<%= datainventory.end_aircon || "0:00:00" %>';
+        const other_quantity = '<%= datainventory.other_quantity || "N/A" %>';
+
+        const inventory = {
+          sound_system: sound_system_quantity > 0 ? 1 : 0,
+          sound_system_quantity: sound_system_quantity,
+          microphone: microphone_quantity > 0 ? 1 : 0,
+          microphone_quantity: microphone_quantity,
+          lcd: lcd_quantity > 0 ? 1 : 0,
+          lcd_quantity: lcd_quantity,
+          widescreen: widescreen_quantity > 0 ? 1 : 0,
+          widescreen_quantity: widescreen_quantity,
+
+          chair: chair_quantity > 0 ? 1 : 0,
+          chair_quantity: chair_quantity,
+          table_input: table_quantity > 0 ? 1 : 0,
+          table_quantity: table_quantity,
+          blackpanel: blackpanel_quantity > 0 ? 1 : 0,
+          blackpanel_quantity: blackpanel_quantity,
+          whiteboard: whiteboard_quantity > 0 ? 1 : 0,
+          whiteboard_quantity: whiteboard_quantity,
+          aircon: aircon,
+          start_aircon: start_aircon,
+          end_aircon: end_aircon,
+          other: other_quantity > 0 ? 1 : 0,
+          other_quantity: other_quantity,
+
+          // Max Chairs
+          sound_system_max: <%= eventResults.availableSoundsystem %>,
+          table_max: <%= eventResults.availableTables %>,
+          chairs_max: <%= eventResults.availableChairs %>,
+          lcd_max: <%= eventResults.availableLcd %>,
+          microphone_max: <%= eventResults.availableMicrophone %>,
+          widescreen_max: <%= eventResults.availableWidescreen %>,
+          blackpanel_max: <%= eventResults.availableBlackpanel %>,
+          whiteboard_max: <%= eventResults.availableWhiteboard %>,
+          <%
+          const dateChanges = eventResults.date_changes instanceof Date ? eventResults.date_changes : new Date();
+          const formattedDate = `${dateChanges.getMonth() + 1}/${dateChanges.getDate()}/${dateChanges.getFullYear()}`;
+          %>
+          date_changes: '<%= formattedDate %>',
+
+        };
+
+        console.log("Inventory:", inventory);
+        console.log("Inventory Object:", inventory);
+
+        const rasatesting2_inventory = {
+          full_name: document.getElementById('full_name').value,
+          event_name: document.getElementById('event_name').value,
+          event_description: document.getElementById('event_description').value,
+          event_day: document.getElementById('event_day').value,
+          start_time: document.getElementById('start_time').value,
+          inventory_id: insertedId,
+          ...inventory,
+          ...inventory2
+        };
+
+        for (const key in rasatesting2_inventory) {
+          if (rasatesting2_inventory.hasOwnProperty(key)) {
+            rasatesting2_inventory[key] = rasatesting2_inventory[key] || 0;
+          }
+        }
+        fetch("/api/rasatesting2_inventory", {
+          method: "POST",
+          body: JSON.stringify(rasatesting2_inventory),
+          headers: {
+            "Content-type": "application/json"
+          }
+        })
+          .then(response => response.json())
+          .then(data => {
+
+            if (data.status === 'duplicated') {
+              alert(data.error);
+              return;
+            }
+            else {
+              alert("Your Rasa Submission is successfully submitted!");
+              document.getElementById('btnSubmit').disabled = true;
+              setTimeout(function () {
+                window.location.href = `/rasaview/${universalId}`;
+              }, 3000);
+            }
+          })
+          .catch(error => {
+            console.error("Error processing rasatesting2_inventory:", error);
+            alert("Error processing rasatesting2_inventory. Please try again.");
+          });
+      })
+      .catch(error => {
+        console.error("Error processing rasatesting2:", error);
+        alert("Overlapped Event. Please choose a different time.");
+      });
+  });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/user-view.css">
+    <title>User View</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Title: User View</h2>
+        <table id="user-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                </tr>
+                <%if(sampleData.length >0)
+                {
+                    sampleData.forEach(function(data){
+                %>
+                <tr>
+                    <td><%=data.id %></td>
+                    <td><%=data.email %></td>
+                    <td><%=data.password %></td>
+                    <td><%=data.role %></td>
+                    <td class="<%= data.pending === 1 ? 'approved' : 'pending' %>">
+                      <%= data.pending === 1 ? 'Approved' : 'Pending' %>
+                    </td>
+                    <td>
+                      <% if (data.pending === 0) { %>
+                        <a href="approve/<%=data.id %>" class="btn btn-sm btn-primary" onclick="approveUser(<%=data.id %>)"> Approve</a>
+                      <% } %>
+                      <a href="editUserView/<%=data.id %>" class="btn btn-sm btn-primary"> Edit</a>
+                      <a href="delete/<%=data.id %>" class="btn btn-sm btn-primary"> Delete</a>
+                    </td>
+                  </tr>
+                <%
+                    });
+                }
+                else
+                {
+                %>
+                <tr>
+                    <td colspan ="5"> No Data Found</td>
+                </tr>
+                <%
+                }
+                %>
+                
+            </thead>
+            </tbody>
+        </table>
+    </div>
+    <script src="js/user.js"></script>
+</body>
+</html>

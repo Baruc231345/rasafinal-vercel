@@ -1,0 +1,40 @@
+{
+  "name": "4-7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@img/sharp-win32-x64": "^0.33.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "fs-extra": "^11.1.1",
+    "html2pdf.js": "^0.10.1",
+    "jsonwebtoken": "^9.0.0",
+    "jspdf": "^2.5.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.3.3",
+    "nodemailer": "^6.9.2",
+    "pdf-creator-node": "^2.3.5",
+    "puppeteer": "^20.9.0",
+    "sequelize": "^6.35.2",
+    "sharp": "^0.32.1",
+    "uuid": "^9.0.0"
+  }
+}

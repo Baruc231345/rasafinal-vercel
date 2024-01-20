@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="./css/editUserView.css" />
+    <title>Edit Page</title>
+  </head>
+  <body>
+    <section class="form-container">
+      <header>
+        <h1>Edit User</h1>
+      </header>
+
+      <form onsubmit="return false;" id="form">
+        <input type="hidden" name="userId" value="<%= userId %>" />
+        <div class="form-group">
+          <input
+            type="text"
+            value="<%= user.email %>"
+            class="form-control"
+            id="email"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+            readonly
+          />
+          <small id="emailHelp" class="form-text text-muted"
+            >We'll never share your email with anyone else.</small
+          >
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            value="<%= user.password %>"
+            class="form-control"
+            id="password"
+            placeholder="Enter Password"
+          />
+        </div>
+        <div class="alert error" id="error" style="display: none"></div>
+        <div class="alert success" id="success" style="display: none"></div>
+        <div class="form-group">
+          <label for="role">Role</label>
+          <input
+            type="text"
+            value="<%= user.role %> "
+            class="form-control"
+            id="role"
+            placeholder="Enter Role"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Edit</button>
+      </form>
+    </section>
+    <script>
+      form.addEventListener("submit", () => {
+        const editUserView = {
+          email: email.value,
+          password: password.value,
+          role: role.value,
+        };
+        fetch("/api/editUserView", {
+          method: "POST",
+          body: JSON.stringify(editUserView),
+          headers: {
+            "Content-type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status == "error") {
+              success.style.display = "none";
+              error.style.display = "block";
+              error.innerText = data.error;
+            } else {
+              success.style.display = "block";
+              error.style.display = "none";
+              success.innerText = data.success;
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

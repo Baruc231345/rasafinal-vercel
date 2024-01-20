@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard - Home - Sample</title>
+  <link rel="stylesheet" type="text/css" href="css/calendar.css">
+</head>
+<body>
+  <div id="calendar">
+    <div class="header">
+      <h1 id="month"></h1>
+    </div>
+    <div class="sub-head">
+      <button id="prev-btn">Prev</button>
+      <button id="next-btn">Next</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Calendar dates will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const events = [
+      {
+        date: new Date(2023, 4, 15),
+        title: "Meeting with John",
+        description: "Discuss new project proposal",
+        id: 309
+      },
+      {
+      date: new Date(2023, 4, 17),
+      title: "Multi-day Event",
+      description: "This event lasts for 3 days",
+      duration: 3,
+      },
+      {
+        date: new Date(2023, 4, 16),
+        title: "Event Title",
+        description: "Event Description"
+
+      },
+      {
+        date: new Date(2023, 4, 16),
+        title: "Sherwin",
+        description: "Sherwin",
+      },
+      { 
+        date: new Date(2023, 4, 17),
+        title: "Test",
+        description: "Test",
+        duration: 1
+      },
+      {
+        date: new Date(2023, 4, 20),
+        title: "Birthday party",
+        description: "Celebrate Jane's birthday"
+      },
+      {
+        date: new Date(2023, 5, 15),
+        title: "School Fair",
+        description: "School Fair Seminar",
+        id: 309,
+        duration: 5
+      },
+    ];
+
+
+    const today = new Date();
+    let currentMonth = today.getMonth();
+    let currentYear = today.getFullYear();
+    const monthYearHeader = document.getElementById("month");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+
+    prevBtn.addEventListener("click", showPreviousMonth);
+    nextBtn.addEventListener("click", showNextMonth);
+
+    function showCalendar() {
+      const firstDay = new Date(currentYear, currentMonth, 1);
+      const lastDay = new Date(currentYear, currentMonth + 1, 0);
+      const daysInMonth = lastDay.getDate();
+
+      monthYearHeader.textContent = `${getMonthName(currentMonth)} ${currentYear}`;
+
+      const tableBody = document.querySelector("tbody");
+      tableBody.innerHTML = "";
+
+      let date = 1;
+      for (let i = 0; i < 6; i++) {
+        const row = document.createElement("tr");
+
+      for (let j = 0; j < 7; j++) {
+          if (i === 0 && j < firstDay.getDay()) {
+            const cell = document.createElement("td");
+            row.appendChild(cell);
+          } else if (date > daysInMonth) {
+            break;
+          } else {
+            const cell = document.createElement("td");
+            cell.textContent = date;
+            row.appendChild(cell);
+
+            const event = events.find(
+        (event) =>
+          event.date.getFullYear() === currentYear &&
+          event.date.getMonth() === currentMonth &&
+          event.date.getDate() <= date &&
+          event.date.getDate() + (event.duration || 1) - 1 >= date
+      );
+
+      if (event) {
+        const cellEventsContainer = document.createElement("div");
+        cellEventsContainer.classList.add("event-container");
+        cell.appendChild(cellEventsContainer);
+
+        for (const event of events) {
+          if (
+            event.date.getFullYear() === currentYear &&
+            event.date.getMonth() === currentMonth &&
+            event.date.getDate() <= date &&
+            event.date.getDate() + (event.duration || 1) - 1 >= date
+          ) {
+            const eventElement = document.createElement("div");
+            eventElement.classList.add("event");
+
+            // Set the color based on the event duration
+            if (event.duration === 1) {
+              eventElement.classList.add("blue");
+            } else if (event.duration === 2) {
+              eventElement.classList.add("red");
+            } else if (event.duration >= 3) {
+              eventElement.classList.add("green");
+            }
+
+            eventElement.innerHTML = `<strong>${event.title}</strong><br>${event.description}`;
+            cellEventsContainer.appendChild(eventElement);
+
+            // Add click event listener to the event element
+            eventElement.addEventListener("click", () => {
+              window.location.href = `/ejsrasa_copy/${event.id}`;
+            });
+          }
+        }
+      }
+
+      date++;
+    }
+        }
+
+        tableBody.appendChild(row);
+      }
+    }
+
+    function showPreviousMonth() {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      showCalendar();
+    }
+
+    function showNextMonth() {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      showCalendar();
+    }
+
+    function getMonthName(monthIndex) {
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      return monthNames[monthIndex];
+    }
+
+    showCalendar();
+  </script>
+</body>
+</html>

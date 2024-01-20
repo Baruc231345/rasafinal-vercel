@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/rasa_view.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" /> 
+    <title>Rasa View</title>
+</head>
+<body id="hometab">
+    <div class="wrapper">
+        <nav class="sidebar">
+          <div class="navbar">   
+          <h1 id="homepagetext"><span id="menu" class="material-symbols-outlined">menu</span>Dashboard Admin</h1>  
+            <ul id="list">
+              <li>
+                <a href="/dashboardAdmin"><span class="material-symbols-outlined">home</span>
+                  <h4>Home</h4>
+                </a>
+              </li>
+
+              <li>
+                <a href="/userview"><span class="material-symbols-outlined">person</span>
+                  <h4>Manage Users</h4>
+                </a>
+              </li>  
+
+              <li>
+                <a href="/rasaview"><span class="material-symbols-outlined">list_alt</span>
+                  <h4>RASA Status</h4>=
+                </a>
+              </li>
+
+              <li>
+                <a href="/inventory"><span class="material-symbols-outlined">list_alt</span>
+                  <h4>Inventory</h4>
+                </a>
+              </li>
+                
+              <li>
+                <a href="/logout"><span class="material-symbols-outlined">logout</span>
+                  <h4>Logout</h4>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      
+    <div class="container">
+        <h2>Rasa View</h2>
+        <div class="pagination" style="text-align: right;">
+          <% if (currentPage > 1) { %>
+            <a href="/rasaview?page=<%= currentPage - 1 %>">Previous</a>
+          <% } %>
+          <% if (sampleData.length === itemsPerPage) { %>
+            <a href="/rasaview?page=<%= currentPage + 1 %>">Next</a>
+          <% } %>
+        </div>
+        <table id="user-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Requestor Information</th>
+                    <th>Requestor Type</th>
+                    <th>Endorsed By</th>
+                    <th>Event Day</th>
+                    <th>Event Description</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Event Name</th>
+                    <th>Duration</th>
+                    <th>Rasa Status</th>
+                    <th>Authenticated</th>
+                    <th>Classroom</th>
+                    <th>HRM</th>
+
+                </tr>
+                <% if(sampleData.length > 0) {
+                    sampleData.forEach(function(data) {
+                        const event_day = new Date(data.event_day).toLocaleDateString();
+                        const startTime = new Date(data.start_time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+                        const endTime = new Date(data.end_time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+                        const startTimeFormatted = startTime.replace(/(\d{1,2}:\d{2})(:\d{2})/, "$1 $2");
+                        const endTimeFormatted = endTime.replace(/(\d{1,2}:\d{2})(:\d{2})/, "$1 $2");
+                %>
+                <tr>
+                    <td><%=data.inputted_id %></td>
+                    <td><%=data.full_name %></td>
+                    <td><%=data.requestor_information %></td>
+                    <td><%=data.requestor_type %></td>
+                    <td><%=data.endorsed %></td>
+                    <td><%=event_day %></td>
+                    <td><%=data.event_description %></td>
+                    <td><%=data.start_time %></td>
+                    <td><%=data.end_time %></td>
+                    <td><%=data.event_name%></td>
+                    <td><%=data.required_day %></td>
+                    <td style="<% if ((data.authenticated === 3) || (data.authenticated === 300) || (data.authenticated === 127)) { %>color: red;<% } %>"><%=data.rasa_status %></td>
+                    <td><%=data.authenticated %></td>
+                    <td><%=data.classroom %></td>
+                    <td><%=data.kitchen %></td>
+                    
+                    <td>
+                      <% var authenticated = parseInt(data.authenticated, 10); %>
+                        <% if (data.authenticated === 2) { %>
+                        <button class="btn btn-sm btn-primary confirm-button" onclick="confirmAction('<%=data.inputted_id %>','<%= data.event_name %>', '<%= data.event_day %>', '<%= data.event_description %>', '<%= data.required_day %>', '<%= data.start_time %>', '<%= data.end_time %>', 
+                        '<%= data.auditorium %>', '<%= data.foodandbeverage %>', '<%= data.multihall %>', '<%= data.dancestudio %>', '<%= data.gym %>', '<%= data.classroom %>', '<%= data.classroom_number %>', '<%= data.kitchen %>', '<%= data.mainlobby %>',
+                        '<%= data.chair_quantity %>','<%= data.table_quantity %>','<%= data.microphone_quantity %>',
+                        '<%= data.lcd_quantity %>','<%= data.widescreen_quantity %>','<%= data.blackpanel_quantity %>','<%= data.whiteboard_quantity%>','<%= data.sound_system_quantity %>')">Confirm</button>
+                        <% } else if (data.rasa_status !== 'Pending' && data.rasa_status !== null && data.rasa_status !== '' && data.authenticated === 0) { %>
+                        <button class="btn btn-sm btn-primary disabled-button" disabled>Approved</button>
+                        <% } else if (data.authenticated === 3 || data.authenticated === 127) { %>
+                        <% } else if (data.classroom === 1 && data.kitchen === 1) { %>
+                          <button class="btn btn-sm btn-primary" onclick="window.location.href='/verificationClassroom/<%=data.inputted_id %>/30'">Approve for Classroom and HRM</button>
+                        <% } else if (data.kitchen === 1) { %>
+                        <button class="btn btn-sm btn-primary" onclick="window.location.href='/verificationHRM/<%=data.inputted_id %>'">Approved for HRM</button>
+                        <% } else if (data.classroom === 1) { %>
+                        <button class="btn btn-sm btn-primary" onclick="window.location.href='/verificationClassroom/<%=data.inputted_id %>/31'">Approved for Classroom</button>
+                       
+                      <% } else { %>
+                        <button class="btn btn-sm btn-primary" onclick="window.location.href='/verification/<%=data.inputted_id %>'">Approved</button>
+                      <% } %>
+                      <button class="btn btn-sm btn-primary" onclick="window.location.href='/pdf1/<%=data.inputted_id %>'">Download PDF</button>
+                      <button class="btn btn-sm btn-primary" onclick="window.location.href='/delete_rasa_request/<%=data.inputted_id %>'">Disregard RASA</button>
+                    </td>
+                </tr>
+                <%
+                    });
+                }
+                else
+                {
+                %>
+                <tr>
+                    <td colspan ="5"> No Data Found</td>
+                </tr>
+                <%
+                }
+                %>
+                
+            </thead>
+            </tbody>
+        </table>
+    </div>
+    <script src="./js/rasa_view.js"></script>
+</body>
+</html>

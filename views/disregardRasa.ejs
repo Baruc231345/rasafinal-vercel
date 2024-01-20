@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/rasa.css">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="note">
+      <% if (datainputted.rasa_note_void === "0" && datainputted.rasa_note !== "0") { %>
+        NOTE 1: <%= datainputted.rasa_note %> <br>
+      <% } %>
+    
+      <% if (datainputted.rasa_note_void === "0" && datainputted.rasa_note2 !== "0") { %>
+        NOTE 2: <%= datainputted.rasa_note2 %> <br>
+      <% } %>
+    
+      <% if (datainputted.rasa_note_void === "0" && datainputted.rasa_note3 !== "0") { %>
+        NOTE 3: <%= datainputted.rasa_note3 %> <br>
+      <% } %>
+    
+      <% if (datainputted.rasa_note_void !== "0") { %>
+        RASA VOID: <%= datainputted.rasa_note_void %> <br>
+      <% } %>
+    </div>
+
+    <header>Summary Rasa Form</header>
+    <form name="myForm" onsubmit="return false;" id="form">
+      <div class="form first">
+        <div class="details personal">
+          <span class="title">Personal Details</span>
+
+          <div class="fields1">
+            <div class="input-field">
+              <label>Full Name</label>
+              <input type="text" id="full_name" value="<%= datainputted.full_name %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Contact Number </label>
+              <input type="text" id="contact_number" value="<%= datainputted.contact_number %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Requestor Information</label>
+              <input type="text" id="requestor_information" value="<%= datainputted.requestor_information %>" disabled>
+            </div>
+
+            <div class="input-field" style="width: 380px;">
+              <label>Requestor Type </label>
+              <input type="text" id="requestor_type" value="<%= datainputted.requestor_type %>" disabled>
+            </div>
+
+            <% if (datainputted.requestor_type==="Student" || datainputted.requestor_type==="Student Leader" ) { %>
+              <div class="input-field">
+                <label>Endorsed by</label>
+                <input type="text" id="endorsed" value="<%= datainputted.endorsed %>" disabled>
+              </div>
+              <% } %>
+
+          </div>
+      </div>
+      <div class="form second">
+        <div class="details personal">
+          <span class="title">Event Information</span>
+
+          <div class="fields2">
+            <div class="input-field">
+              <label>Event Name</label>
+              <input type="text" id="event_name" value="<%= datainputted.event_name %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Event Date/Day</label>
+              <input type="date" id="event_day" value="<%= datainputted.event_day.toISOString().split('T')[0] %>"
+                onchange="formatDate()" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Event Description</label>
+              <input type="text" id="event_description" value="<%= datainputted.event_description %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Expected Participants</label>
+              <input type="number" id="participants" value="<%= datainputted.participants %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Purpose/Objective</label>
+              <input type="text" id="purpose_objectives" value="<%= datainputted.purpose_objectives %>" disabled>
+            </div>
+
+            <div class="input-field" style="width: 380px;">
+              <label>How many days do you require use of the facility?</label>
+              <input type="text" id="required_day" value="<%= datainputted.required_day %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>Start Time</label>
+              <input type="time" id="start_time" value="<%= datainputted.start_time %>" disabled>
+            </div>
+
+            <div class="input-field">
+              <label>End Time</label>
+              <input type="time" id="end_time" value="<%= datainputted.end_time %>" disabled>
+            </div>
+          </div>
+        </div>
+
+        <div class="mid" style="padding-top: 20px;margin-bottom: 0px;">
+          <div class="top" style="width: 400px; padding-left: 20px;">
+            <span class="title">Facilities Needed</span>
+            <p class="text">Here is the list of facilities you have selected:</p>
+            <ul class="facility-list">
+              <% if (datainventory.auditorium===1) { %>
+                <li><span class="check-symbol">✔</span> <span class="selected-facility">Auditorium</span></li>
+                <% } %>
+                  <% if (datainventory.foodandbeverage===1) { %>
+                    <li><span class="check-symbol">✔</span> <span class="selected-facility">Food and Beverage
+                        Room</span></li>
+                    <% } %>
+                      <% if (datainventory.mainlobby===1) { %>
+                        <li><span class="check-symbol">✔</span> <span class="selected-facility">Main Lobby</span></li>
+                        <% } %>
+                          <% if (datainventory.dancestudio===1) { %>
+                            <li><span class="check-symbol">✔</span> <span class="selected-facility">Dance
+                                Studio</span>
+                            </li>
+                            <% } %>
+                              <% if (datainventory.multihall===1) { %>
+                                <li><span class="check-symbol">✔</span> <span class="selected-facility">Multihall</span>
+                                </li>
+                                <% } %>
+                                  <% if (datainventory.gym===1) { %>
+                                    <li><span class="check-symbol">✔</span> <span
+                                        class="selected-facility">Gymnasium</span></li>
+                                    <% } %>
+                                      <% if (datainventory.kitchen===1) { %>
+                                        <li><span class="check-symbol">✔</span> <span
+                                            class="selected-facility">Kitchen</span></li>
+                                        <% } %>
+                                          <% if (datainventory.classroom===1) { %>
+                                            <li><span class="check-symbol">✔</span> <span
+                                                class="selected-facility">Classroom</span></li>
+                                            <% } %>
+            </ul>
+          </div>
+
+          <div class="details personal" style="display: block;">
+            <span class="title">Equipment Needed</span>
+            <p class="text">Here is the list of equipment you have selected:</p>
+
+            <% if (datainventory.sound_system===1 || datainventory.microphone===1 || datainventory.lcd===1 ||
+              datainventory.widescreen===1) { %>
+              <!-- MIS/IT Section -->
+              <div class="test" style="display: flex; justify-content: space-between">
+                <div class="fields4" style="flex: 1;">
+                  <h3 class="equipment-section">MIS/IT</h3>
+                  <ul class="equipment-list">
+                    <% if (datainventory.sound_system===1) { %>
+                      <li><span class="check-symbol">✔</span> <span class="selected-equipment">Sound System</span> -
+                        <%= datainventory.sound_system_quantity %>
+                      </li>
+                      <% } %>
+                        <% if (datainventory.microphone===1) { %>
+                          <li><span class="check-symbol">✔</span> <span class="selected-equipment">Microphone</span> -
+                            <%= datainventory.microphone_quantity %>
+                          </li>
+                          <% } %>
+                            <% if (datainventory.lcd===1) { %>
+                              <li><span class="check-symbol">✔</span> <span class="selected-equipment">LCD
+                                  Projector</span>
+                                - <%= datainventory.lcd_quantity %>
+                              </li>
+                              <% } %>
+                                <% if (datainventory.widescreen===1) { %>
+                                  <li><span class="check-symbol">✔</span> <span
+                                      class="selected-equipment">Widescreen</span>
+                                    - <%= datainventory.widescreen_quantity %>
+                                  </li>
+                                  <% } %>
+                  </ul>
+                  <% } %>
+                </div>
+
+
+                <% if (datainventory.chair===1 || datainventory.table_input===1 || datainventory.blackpanel===1 ||
+                  datainventory.whiteboard===1 || datainventory.aircon===1 || datainventory.other===1) { %>
+                  <div class="fields5" style="flex: 1;">
+                    <h3 class="equipment-section">Bag</h3>
+                    <ul class="equipment-list">
+                      <% if (datainventory.chair===1) { %>
+                        <li><span class="check-symbol">✔</span> <span class="selected-equipment">Chair/s</span> - <%=
+                            datainventory.chair_quantity %>
+                        </li>
+                        <% } %>
+                          <% if (datainventory.table_input===1) { %>
+                            <li><span class="check-symbol">✔</span> <span class="selected-equipment">Table/s</span> -
+                              <%= datainventory.table_quantity %>
+                            </li>
+                            <% } %>
+                              <% if (datainventory.blackpanel===1) { %>
+                                <li><span class="check-symbol">✔</span> <span class="selected-equipment">Black
+                                    Panel</span> - <%= datainventory.blackpanel_quantity %>
+                                </li>
+                                <% } %>
+                                  <% if (datainventory.whiteboard===1) { %>
+                                    <li><span class="check-symbol">✔</span> <span
+                                        class="selected-equipment">Whiteboard</span> - <%=
+                                        datainventory.whiteboard_quantity %>
+                                    </li>
+                                    <% } %>
+                                      <% if (datainventory.aircon===1) { %>
+                                        <li><span class="check-symbol">✔</span> <span class="selected-equipment">Aircon
+                                            Time</span> - <%= datainventory.start_aircon %> To <%=
+                                              datainventory.end_aircon %>
+                                        </li>
+                                        <% } %>
+                                          <% if (datainventory.other===1) { %>
+                                            <li><span class="check-symbol">✔</span> <span
+                                                class="selected-equipment">Other: <%= datainventory.other_quantity %>
+                                              </span></li>
+                                            <% } %>
+                    </ul>
+                  </div>
+                  <% } %>
+              </div>
+          </div>
+        </div>
+
+
+        <div class="signature-form">
+          <div class="signature-column">
+            <div class="signature-container">
+              <canvas id="form_signClassroom" width="200" height="150"></canvas>
+              <img id="form_sign_image"
+                src="<%= datainputted.form_signClassroom ? 'data:image/png;base64,' + datainputted.form_signClassroom.toString('base64') : '' %>"
+                alt="Classroom Facilitator">
+            </div>
+            <div class="form_sign">
+              <div id="form_sign_text">Classroom Facilitator</div>
+            </div>
+
+            <div class="signature-container">
+              <canvas id="form_sign" width="200" height="150"></canvas>
+              <img id="form_sign_image"
+                src="<%= datainputted.form_sign ? 'data:image/png;base64,' + datainputted.form_sign.toString('base64') : '' %>"
+                alt="Endorsed By">
+            </div>
+            <div class="form_sign">
+              <div id="form_sign_text">Endorsed By</div>
+            </div>
+
+            <div class="signature-container">
+              <canvas id="form_sign4" width="200" height="150"></canvas>
+            </div>
+            <div class="form_sign4">
+              <div id="form_sign4">OSA Approval</div>
+            </div>
+
+            <div class="signature-container">
+              <canvas id="form_sign3" width="200" height="150"></canvas>
+            </div>
+            <div class="form_sign3">
+              <div id="form_sign3">MIS/IT Approval</div>
+            </div>
+          </div>
+
+          <div class="signature-column">
+            <div class="signature-container">
+              <canvas id="form_signHRM" width="200" height="150"></canvas>
+              <img id="form_sign_image"
+                src="<%= datainputted.form_signHRM ? 'data:image/png;base64,' + datainputted.form_signHRM.toString('base64') : '' %>"
+                alt="HRM Approval">
+            </div>
+            <div class="form_sign4">
+              <div id="form_sign4">HRM Custodian</div>
+            </div>
+
+            <div class="signature-container">
+              <canvas id="form_sign2" width="200" height="150"></canvas>
+              <img id="form_sign_image"
+                src="<%= datainputted.form_sign2 ? 'data:image/png;base64,' + datainputted.form_sign2.toString('base64') : '' %>"
+                alt="Venue Approval">
+            </div>
+            <div class="form_sign2">
+              <div id="form_sign2_text">Venue Approval</div>
+            </div>
+
+            <div class="signature-container">
+              <canvas id="form_sign5" width="200" height="150"></canvas>
+            </div>
+            <div class="form_sign5">
+              <div id="form_sign5">Academic Head Approval</div>
+            </div>
+
+            <div class="signature-container">
+              <canvas id="form_sign6" width="200" height="150"></canvas>
+            </div>
+            <div class="form_sign6">
+              <div id="form_sign6">School Administrator Approval</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+</body>
+
+<script>
+  window.onload = async function () {
+    var number = '<%= encryptedNumber %>';
+    var digit = 404
+    var email = "no email";
+    var encryptedId = '<%= encryptedId %>';
+    var rasa_note = '<%= datainputted.rasa_note %>';
+    var rasa_note2 = '<%= datainputted.rasa_note2 %>';
+    var rasa_note3 = '<%= datainputted.rasa_note3 %>';
+    var rasa_note4 = '<%= datainputted.rasa_note4 %>';
+    console.log(encryptedId, "encryptedId")
+    console.log(number, "var number");
+
+    let number1 = parseInt(number, 10);
+    ///////////////
+    let finalVerification = "ejsrasaVanilla2";
+    /////////////////
+
+    let finalNote = '<%= datainputted.rasa_note_void %>';
+
+    if (finalNote !== "0") {
+      alert('Void Rasa has already Noted: ' + finalNote);
+      return;
+    } else {
+      do {
+        finalNote = prompt("Enter Note:");
+      } while (finalNote === null || finalNote === "");
+      console.log('User input:', finalNote);
+
+      // 200 number for rasa_note_void
+      try {
+        const response = await fetch("/api/rasa_note", {
+          method: "POST",
+          body: JSON.stringify({ note: finalNote, number: 200, id: '<%= datainputted.id %>' }),
+          headers: {
+            "Content-type": "application/json"
+          }
+        });
+
+        if (response.ok) {
+          console.log('Rasa note updated successfully.');
+          const signatureResponse = await fetch("/api/rasa_signature", {
+            method: "POST",
+            body: JSON.stringify({ number: number, email: email, id: '<%= datainputted.id %>' }),
+            headers: {
+              "Content-type": "application/json"
+            }
+          });
+
+          if (signatureResponse.ok) {
+            const authenticateResponse = await fetch("/api/rasa_authenticate", {
+              method: "POST",
+              body: JSON.stringify({ digit: digit, id: '<%= datainputted.id %>' }),
+              headers: {
+                "Content-type": "application/json"
+              }
+            });
+          } else {
+            console.log("Signature Response has error")
+          }
+          if (authenticateResponse.ok) {
+            console.log('Rasa signature API processed successfully.');
+            window.location.href = `/${finalVerification}/${encryptedId}`;
+          } else {
+            console.error('There was a problem with the rasa_signature fetch operation.');
+          }
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      } catch (error) {
+        console.error('There was a problem with the rasa_note fetch operation:', error);
+      }
+    }
+  }
+</script>
+</body>
+
+</html>

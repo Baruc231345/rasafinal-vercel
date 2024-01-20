@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard - Home - Sample</title>
+  <link rel="stylesheet" href="./css/rasa_dashboard.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+
+<body id="hometab">
+  <div class="wrapper">
+    <nav class="sidebar">
+      <div class="navbar">
+        <h1 id="homepagetext"><span id="menu" class="material-symbols-outlined">menu</span>Dashboard</h1>
+        <ul id="list">
+          <li>
+            <a href="/dashboardRegular/<%= id %>"><span class="material-symbols-outlined">home</span>
+              <h4>Home</h4>
+            </a>
+          </li>
+
+          <li>
+            <a href="/rasa"><span class="material-symbols-outlined">list_alt</span>
+              <h4>RASA</h4>
+            </a>
+          </li>
+
+          <li>
+            <a href="/rasaview/<%= id %>"><span class="material-symbols-outlined">list_alt</span>
+              <h4>RASA Status</h4>
+            </a>
+          </li>
+
+          <li>
+            <a href="/logout"><span class="material-symbols-outlined">logout</span>
+              <h4>Logout</h4>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div id="calendar-container" class="calendar-container">
+    <div class="mainscreen">
+      <div class="container">
+        <header>Facility Reservation Request Form</header>
+        <form name="myForm" onsubmit="return false;" id="form">
+          <div class="form first">
+            <div class="details personal">
+              <span class="title">Personal Details</span>
+              <div class="fields1">
+                <div class="input-field">
+                  <label>Full Name</label>
+                  <input type="text" id="full_name" value = "<%= full_name %>" disabled>
+                </div>
+                <div class="input-field">
+                  <label>Student Employee</label>
+                  <input type="text" id="user_id" value= "<%= user_id %>" disabled>
+                </div>
+                <div class="input-field">
+                  <label>Contact Number </label>
+                  <input type="text" id="contact_number" value = "<%= contact_number %>" disabled>
+                </div>
+                <div class="input-field">
+                  <label for="requestor_information">Requestor Information</label>
+                  <input type="text" id="requestor_information" value="<%= requestor_information %>" disabled>
+                </div>
+                
+                <div class="input-field" style="width: 380px;">
+                  <label id="requestor">Requestor Type </label>
+                  <input type="text" id="requestor_type" value = "<%= course %>" disabled>
+                </div>
+
+                <div class="input-field" id="endorsedLabel">
+                  <label for="endorsed">Endorsed by</label>
+                  <div class="select-wrapper">
+                    <!-- Student and Student Leader -->
+                    <select id="endorsed" style="display: none;">
+                      <option value="" disabled selected><strong>Information & Communications Technology</strong>
+                      </option>
+                      <option value="Information & Communications Technology: People 1">Information & Communications
+                        Technology: People 1</option>
+                      <option value="" disabled selected>Business & Management</option>
+                      <option value="Business & Management: People 1">Business & Management: People 1</option>
+                      <option value="" disabled selected>Hospitality Management</option>
+                      <option value="Hospitality Management: People 1">Hospitality Management: People 1</option>
+                    </select>
+                    <!-- Teachers -->
+                    <select id="endorsed2" style="display: none;">
+                      <option value="" disabled selected><strong>IT Department</strong></option>
+                      <option value="Mr. Mac Salonga">Mr. Mac Salonga</option><!--magistrado.222133@globalcity.sti.edu.ph-->
+                      <option value="" disabled selected>Business & Management Department</option>
+                      <option value="Ms. Anne Bartolome">Ms. Anne Bartolome</option> <!--rodillas.222275@globalcity.sti.edu.ph.com-->
+                      <option value="" disabled selected>Hospitality Management</option>
+                      <option value="Mr. Joseph Transmontero">Mr. Joseph Transmontero</option> <!--lopez.195633@globalcity.sti.edu.ph-->
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="form second">
+            <div class="details personal" required>
+              <span class="title">Event Information</span>
+              <div class="fields2">
+                <div class="input-field" required>
+                  <label>Event Name</label>
+                  <input type="text" id="event_name" placeholder="Enter Event Name" required maxlength="30">
+                </div>
+                <div class="input-field" required>
+                  <label>Event Date/Day</label>
+                  <input type="date" id="event_day" value="10/13/2023" onchange="formatDate()" style="width: 268px;">
+                </div>
+                <div class="input-field" required>
+                  <label for="event_description">Event Description</label required>
+                  <div class="select-wrapper">
+                    <select id="event_description">
+                      <option value="" disabled selected>Select Description</option>
+                      <option value="Seminar">Seminar</option>
+                      <option value="Show">Show</option>
+                      <option value="Meeting">Meeting</option>
+                      <option value="Etc">Etc</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="input-field">
+                  <label>Purpose/Objective</label>
+                  <input type="text" id="purpose_objectives" placeholder="Specify the purpose" required maxlength="40">
+                </div>
+
+                <div class="input-field" style="width: 300px;">
+                  <label>Expected Participants</label>
+                  <input type="number" id="participants" placeholder="# of Participants" min="0" max="50" required
+                    style="width: 268px;">
+                </div>
+
+                <div class="input-field" style="width: 380px;">
+                  <label>Required Days</label>
+                  <input type="number" id="required_day" placeholder="Specify the days" min="0" max="9" required
+                    style="width: 268px;">
+                </div>
+                <div class="input-field">
+                  <label>Start Time</label>
+                  <input type="time" id="start_time" placeholder="include set-up time or ingress" required
+                    style="width: 268px;">
+                </div>
+                <div class="input-field">
+                  <label for="end_time">End Time</label>
+                  <input type="time" id="end_time" name="end_time" placeholder="Include break-down time or egress"
+                    required style="width: 268px;">
+                </div>
+              </div>
+              <div class="mid">
+                <div class="top" style="width: 1500px;">
+                  <span class="title">Facilities Needed</span>
+                  <p class="text">*please check all rooms/facilities you plan to use</p>
+                  <div class="fields3">
+                    <div class="row1">
+                      <label for="myRadioId" class="radio">
+                        <input type="checkbox" name="myRadioField" id="myRadioId" class="radio_input">
+                        <div class="radio_radio"></div>
+                        Auditorium
+                      </label>
+                    </div>
+                    <div class="row2">
+                      <label for="myRadioId4" class="radio">
+                        <input type="checkbox" name="myRadioField" id="myRadioId4" class="radio_input">
+                        <div class="radio_radio"></div>
+                        Food and Beverage Room
+                      </label>
+                    </div>
+                    <div class="row3">
+                      <label for="myRadioId7" class="radio">
+                        <input type="checkbox" name="myRadioField" id="myRadioId7" class="radio_input">
+                        <div class="radio_radio"></div>
+                        Main Lobby
+                      </label>
+                      <div class="row7">
+                        <label for="myRadioId5" class="radio">
+                          <input type="checkbox" name="myRadioField" id="myRadioId5" class="radio_input">
+                          <div class="radio_radio"></div>
+                          Dance Studio
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row4">
+                      <label for="myRadioId1" class="radio">
+                        <input type="checkbox" name="myRadioField" id="myRadioId1" class="radio_input">
+                        <div class="radio_radio"></div>
+                        Multi Purpose Hall
+                      </label>
+                    </div>
+                    <div class="row5">
+                      <label for="myRadioId2" class="radio">
+                        <input type="checkbox" name="myRadioField" id="myRadioId2" class="radio_input">
+                        <div class="radio_radio"></div>
+                        Gymnasium
+                      </label>
+                    </div>
+                    <div class="row7">
+                      <label for="myRadioId6" class="radio">
+                        <input type="checkbox" name="myRadioField" id="myRadioId6" class="radio_input">
+                        <div class="radio_radio"></div>
+                        Kitchen Area
+                      </label>
+                    </div>
+                    <div class="row6">
+                      <label for="myRadioId3" class="radio">
+                        <input type="checkbox" name="myRadioField" id="myRadioId3" class="radio_input"
+                          onchange="toggleClassroomNumber()">
+                        <div class="radio_radio"></div>
+                        Classrooms
+                      </label>
+                      <div class="classroom_number flex-container" style="display: none;">
+                        <label for="room" style="padding-left: 20px;">Room#</label>
+                        <input type="text" id="classroom_number" style="margin-left: 2px; height: 30.818182px;">
+                      </div>
+                    </div>
+
+                    <script>
+                      function toggleClassroomNumber() {
+                        const checkbox = document.getElementById("myRadioId3");
+                        const classroomNumberContainer = document.querySelector(".classroom_number");
+
+                        classroomNumberContainer.style.display = checkbox.checked ? "flex" : "none";
+                      }
+                    </script>
+                  </div>
+                </div>
+                <div class="details personal">
+                  <span class="title">Equipment Needed</span>
+                  <p class="text">*please check all equipment you plan to use</p>
+                  <div class="fields4">
+                    <p class="text1">MIS/IT</p>
+                    <label for="myRadioId_1" class="radio2">
+                      <input type="checkbox" name="myRadioField" id="myRadioId_1" class="radio_input1">
+                      <div class="radio_radio1"></div>
+                      Sound System
+                      <div class="input-wide">
+                        <input type="number" placeholder="Number of Sound System" id="sound-system_input" min="0"
+                          disabled>
+                      </div>
+                    </label>
+                    <label for="myRadioId_2" class="radio2">
+                      <input type="checkbox" name="myRadioField" id="myRadioId_2" class="radio_input1">
+                      <div class="radio_radio1"></div>
+                      Microphone
+                      <div class="input-wide" style="padding-left: 20px;width: 202px;">
+                        <input type="number" placeholder="Number of Microphone" id="microphone_input" min="0" disabled>
+                      </div>
+                    </label>
+                    <label for="myRadioId_3" class="radio2">
+                      <input type="checkbox" name="myRadioField" id="myRadioId_3" class="radio_input1">
+                      <div class="radio_radio1"></div>
+                      LCD Projector
+                      <div class="input-wide" style="padding-left: 3px;width: 202px;">
+
+                        <input type="number" placeholder="Number of Lcd Projector" id="lcd-projector_input" min="0"
+                          disabled>
+                      </div>
+                    </label>
+                    <label for="myRadioId_4" class="radio2">
+                      <input type="checkbox" name="myRadioField" id="myRadioId_4" class="radio_input1">
+                      <div class="radio_radio1"></div>
+                      Widescreen
+                      <div class="input-wide" style="padding-left: 18px;width: 202px;">
+
+                        <input type="number" placeholder="Number of Sound System" id="wide-screen_input" min="0"
+                          disabled>
+                      </div>
+                    </label>
+                  </div>
+                  <div class="fields5">
+                    <p class="text1">Bag</p>
+                    <label for="myRadioId-1" class="radio3">
+                      <input type="checkbox" name="myRadioField" id="myRadioId-1" class="radio_input2">
+                      <div class="radio_radio2"></div>
+                      Chair/s
+                      <div class="input-wide" style="padding-left: 50px;width: 202px;">
+                        <input type="number" placeholder="Number of Chair/s" id="chair_input" min="0" disabled>
+                      </div>
+                    </label>
+                    <label for="myRadioId-2" class="radio3">
+                      <input type="checkbox" name="myRadioField" id="myRadioId-2" class="radio_input2">
+                      <div class="radio_radio2"></div>
+                      Table/s
+                      <div class="input-wide" style="padding-left: 50px;width: 202px;">
+                        <input type="number" placeholder="Number of Table/s" id="table_input" min="0" disabled>
+                      </div>
+                    </label>
+                    <div class="row3">
+                      <label for="myRadioId-3" class="radio3">
+                        <input type="checkbox" name="myRadioField" id="myRadioId-3" class="radio_input2">
+                        <div class="radio_radio2"></div>
+                        Black Panel
+                        <div class="input-wide" style="padding-left: 16px;width: 202px;">
+                          <input type="number" placeholder="Number of Black Panel" id="black-panel_input" min="0"
+                            disabled>
+                        </div>
+                      </label>
+                      <label for="myRadioId-4" class="radio3">
+                        <input type="checkbox" name="myRadioField" id="myRadioId-4" class="radio_input2">
+                        <div class="radio_radio2"></div>
+                        Whiteboard
+                        <div class="input-wide" style="padding-left: 19px;width: 202px;">
+                          <input type="number" placeholder="Number of Whiteboard" id="whiteboard_input" min="0"
+                            disabled>
+                        </div>
+                      </label>
+                    </div>
+
+                    <div class="input-other" style="
+                        width: 342.703px;
+                        height: 25px;
+                    ">
+                      <label for="myRadioId-7" class="radio3">
+                        <input type="checkbox" name="myRadioField" id="myRadioId-7" class="radio_input2">
+                        <div class="radio_radio2"></div>
+                        Other:
+                      </label>
+                      <input type="text" placeholder="Other/s" id="otherInput" disabled="" style="margin-left: 55px;">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form third">
+                <button onclick="displayNotice()">Enter</button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    </form>
+</body>
+
+<script>
+  window.onload = function () {
+    formatDate();
+  };
+  const universalId = '<%= id %>';
+  function setupCheckboxBehavior(checkboxId, inputId) {
+    const checkbox = document.getElementById(checkboxId);
+    const input = document.getElementById(inputId);
+    checkbox.addEventListener('change', function () {
+      input.disabled = !this.checked;
+      input.required = this.checked;
+      if (!this.checked) {
+        input.value = '';
+      }
+    });
+  }
+  setupCheckboxBehavior('myRadioId-7', 'otherInput');
+  setupCheckboxBehavior('myRadioId-4', 'whiteboard_input');
+  setupCheckboxBehavior('myRadioId-3', 'black-panel_input');
+  setupCheckboxBehavior('myRadioId-2', 'table_input');
+  setupCheckboxBehavior('myRadioId-1', 'chair_input');
+  setupCheckboxBehavior('myRadioId_4', 'wide-screen_input');
+  setupCheckboxBehavior('myRadioId_3', 'lcd-projector_input');
+  setupCheckboxBehavior('myRadioId_2', 'microphone_input');
+  setupCheckboxBehavior('myRadioId_1', 'sound-system_input');
+
+  const imageInput = document.querySelector("#image_input");
+  const imageInput2 = document.querySelector("#image_input2");
+  var uploadImage = "";
+  var uploadImage2 = "";
+  imageInput.addEventListener("change", function () {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      uploadImage = reader.result;
+      document.querySelector("#form_sign").style.backgroundImage = `url(${uploadImage})`;
+    });
+    reader.readAsDataURL(this.files[0]);
+  });
+  imageInput2.addEventListener("change", function () {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      uploadImage2 = reader.result;
+      document.querySelector("#form_sign2").style.backgroundImage = `url(${uploadImage2})`;
+    });
+    reader.readAsDataURL(this.files[0]);
+  });
+  function displayNotice() {
+    var notice = "Important Notice:\n\n" +
+      "- No facility is reserved without a proper request form being submitted. Facilities and other resources shall be used for school related activities only.\n\n" +
+      "- The requestor secures a Form from the OSA office at the ground floor. Form must be approved and submitted two (2) weeks before the intended use.\n\n" +
+      "- The Requestor submits filled-out form to the adviser or person-in charge for endorsement approval. All activities must have a clear objective/s that aligns with the school's policy.\n\n" +
+      "- You can check the availability and seek approval to the following department (Rooms - Academic Secretary at the 6th Floor Faculty room, Venus and other resources - Building Admin at the 4th floor and for Technical support - MIS & IT department at the 3rd floor). The final approval will be the academic head and school administrator.\n\n" +
+      "- Facility/Equipment's must return clean and damage-free after the activity. The Requestor and Adviser/Heads shall be accountable for any loss/damage to the facilities and borrowed resources.\n\n" +
+      "- All production materials used for the activity shall be removed and disposed properly.\n\n" +
+      "- Once approved, the requestor must submit (------) of Request Form to the following offices: OSA, Building Admin, MIS & IT, and Security Officer (Lobby or Basement).";
+    var agree = confirm(notice + "\n\nDo you agree to the notice?");
+    if(agree){
+      const requiredDayInput = document.getElementById("required_day");
+      const requiredDayValue = requiredDayInput.value;
+      if (isNaN(requiredDayValue)) {
+        alert("Error: Required Day must be a number.");
+        return;
+      }
+      const requiredDay = parseInt(document.getElementById("required_day").value, 10);
+      const startTimeValue = document.getElementById("start_time").value;
+      const endTimeValue = document.getElementById("end_time").value;
+      console.log(requiredDay);
+      console.log(startTimeValue);
+      console.log(endTimeValue);
+
+      if (requiredDay === 1 && startTimeValue >= endTimeValue) {
+        alert("Error: Required Day is 1 and Start Time must be less than End Time.");
+        return;
+      }
+    const endorsedSelect = document.getElementById("endorsed");
+    const endorsedSelect2 = document.getElementById("endorsed2");
+    const start_date1 = document.getElementById("start_date");
+    const end_date1 = document.getElementById("end_date");
+    const full_name1 = document.getElementById("full_name");
+    const event_name1 = document.getElementById("event_name");
+    const event_day1 = document.getElementById("event_day");
+    const start_time1 = document.getElementById("start_time");
+    const end_time1 = document.getElementById("end_time");
+    const event_description1 = document.getElementById("event_description");
+    const requestor_information = document.getElementById("requestor_information");
+    const requestor_type = document.getElementById("requestor_type");
+    const required_day = document.getElementById("required_day");
+    const contact_number = document.getElementById("contact_number");
+    const participants = document.getElementById("participants");
+    const endorsed = document.getElementById("endorsed");
+    const purpose_objectives = document.getElementById("purpose_objectives");
+    // Checkboxes
+    const soundSystemCheckbox = document.getElementById("myRadioId_1");
+    const microphoneCheckbox = document.getElementById("myRadioId_2");
+    const lcdCheckbox = document.getElementById("myRadioId_3");
+    const widescreenCheckbox = document.getElementById("myRadioId_4");
+    const chairCheckbox = document.getElementById("myRadioId-1");
+    const tableCheckbox = document.getElementById("myRadioId-2");
+    const otherCheckbox = document.getElementById("myRadioId-7");
+    const blackpanelCheckbox = document.getElementById("myRadioId-3");
+    const whiteboardCheckbox = document.getElementById("myRadioId-4");
+    // Input fields
+    const soundSystemInput = document.getElementById("sound-system_input");
+    const microphoneInput = document.getElementById("microphone_input");
+    const lcdInput = document.getElementById("lcd-projector_input");
+    const widescreenInput = document.getElementById("widescreen_input");
+    const chairInput = document.getElementById("chair_input");
+    const tableInput = document.getElementById("table_input");
+    const otherInput = document.getElementById('otherInput');
+    const whiteboardInput = document.getElementById("whiteboard_input");
+    const blackpanel = document.getElementById("myRadioId-3");
+    const blackpanelInput = document.getElementById("black-panel_input");
+    const startTime = new Date(start_time1.value);
+    const endTime = new Date(end_time1.value);
+
+      const form = document.querySelector("form");
+      const nextBtn = form.querySelector(".nextBtn");
+      const nextBtn2 = form.querySelector(".nextBtn2");
+      const backBtn = form.querySelector(".backBtn");
+      const nextBtn3 = form.querySelector(".nextBtn3");
+      const backBtn2 = form.querySelector(".backBtn2");
+      const allInput = form.querySelectorAll(".first input");
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const positionLabel = document.querySelector('#position label').textContent;
+        const inputFieldValues = Array.from(document.querySelectorAll('.input-field2 input')).map(input => input.value);
+        const myButton = document.querySelector('#noneBtn');
+
+        myButton.addEventListener('click', myFunction);
+
+        function myFunction() {
+          console.log(`Position Label: ${positionLabel}`);
+          console.log(`Input Field Values: ${inputFieldValues}`);
+        }
+      });
+
+      const inventory = {
+        auditorium: document.getElementById("myRadioId").checked ? 1 : 0,
+        foodandbeverage: document.getElementById("myRadioId4").checked ? 1 : 0,
+        mainlobby: document.getElementById("myRadioId7").checked ? 1 : 0,
+        dancestudio: document.getElementById("myRadioId5").checked ? 1 : 0,
+        multihall: document.getElementById("myRadioId1").checked ? 1 : 0,
+        gym: document.getElementById("myRadioId2").checked ? 1 : 0,
+        kitchen: document.getElementById("myRadioId6").checked ? 1 : 0,
+        classroom: document.getElementById("myRadioId3").checked ? 1 : 0,
+        classroom_number: document.getElementById("classroom_number").value ? document.getElementById("classroom_number").value : null
+      };
+
+      const inventory2 = {
+        sound_system: document.getElementById("myRadioId_1").checked ? 1 : 0,
+        sound_system_quantity: document.getElementById("sound-system_input").value,
+        microphone: document.getElementById("myRadioId_2").checked ? 1 : 0,
+        microphone_quantity: document.getElementById("microphone_input").value,
+        lcd: document.getElementById("myRadioId_3").checked ? 1 : 0,
+        lcd_quantity: document.getElementById("lcd-projector_input").value,
+        widescreen: document.getElementById("myRadioId_4").checked ? 1 : 0,
+        widescreen_quantity: document.getElementById("wide-screen_input").value,
+        chair: document.getElementById("myRadioId-1").checked ? 1 : 0,
+        chair_quantity: document.getElementById("chair_input").value,
+        table_input: document.getElementById("myRadioId-2").checked ? 1 : 0,
+        table_quantity: document.getElementById("table_input").value,
+        blackpanel: document.getElementById("myRadioId-3").checked ? 1 : 0,
+        blackpanel_quantity: document.getElementById("black-panel_input").value,
+        whiteboard: document.getElementById("myRadioId-4").checked ? 1 : 0,
+        whiteboard_quantity: document.getElementById("whiteboard_input").value,
+        aircon: 1,
+        start_aircon: document.getElementById("start_time").value,
+        end_aircon: document.getElementById("end_time").value,
+        other: document.getElementById("myRadioId-7").checked ? 1 : 0,
+        other_quantity: document.getElementById("otherInput").value,
+      }
+
+      blackpanel.addEventListener("change", () => {
+        blackpanelInput.disabled = !blackpanel.checked;
+      });
+
+      soundSystemInput.disabled = true;
+      microphoneInput.disabled = true;
+      lcdInput.disabled = true;
+      chairInput.disabled = true;
+      tableInput.disabled = true;
+      otherInput.disabled = true;
+      blackpanelInput.disabled = true;
+      whiteboardInput.disabled = true;
+
+
+      soundSystemCheckbox.addEventListener("change", () => {
+        soundSystemInput.disabled = !soundSystemCheckbox.checked;
+      });
+      microphoneCheckbox.addEventListener("change", () => {
+        microphoneInput.disabled = !microphoneCheckbox.checked;
+      });
+      lcdCheckbox.addEventListener("change", () => {
+        lcdInput.disabled = !lcdCheckbox.checked;
+      });
+      widescreenCheckbox.addEventListener("change", () => {
+        widescreenInput.disabled = !widescreenCheckbox.checked;
+      });
+      chairCheckbox.addEventListener("change", () => {
+        chairInput.disabled = !chairCheckbox.checked;
+      });
+      tableCheckbox.addEventListener("change", () => {
+        tableInput.disabled = !tableCheckbox.checked;
+      });
+      otherCheckbox.addEventListener("change", () => {
+        otherInput.disabled = !otherCheckbox.checked;
+      });
+      blackpanelCheckbox.addEventListener("change", () => {
+        blackpanelInput.disabled = !blackpanelCheckbox.checked;
+      });
+      whiteboardCheckbox.addEventListener("change", () => {
+        whiteboardInput.disabled = !whiteboardCheckbox.checked;
+      });
+
+
+      form.addEventListener("submit", () => {
+        const rasatesting = {
+          full_name: full_name1.value,
+          event_name: event_name1.value,
+          event_description: event_description1.value,
+          event_day: event_day1.value,
+          start_time: start_time.value,
+          end_time: end_time.value,
+          requestor_information: requestor_information.value,
+          requestor_type: requestor_type.value,
+          required_day: required_day.value,
+          endorsed: endorsedSelect.value || endorsedSelect2.value,
+          contact_number: contact_number.value,
+          participants: participants.value,
+          purpose_objectives: purpose_objectives.value,
+          course: course
+        };
+
+        fetch("/api/rasatesting", {
+          method: "POST",
+          body: JSON.stringify(rasatesting),
+          headers: {
+            "Content-type": "application/json"
+          }
+        })
+          .then(response => response.json())
+          .then(data => {
+            const id = data.id;
+            window.location.href = `/ejsrasa_copy/${id}/${universalId}`;
+            const rasatesting_inventory = {
+              rasa_inventory_id: data.id,
+              ...inventory,
+              ...inventory2
+            };
+
+            for (const key in rasatesting_inventory) {
+              if (rasatesting_inventory.hasOwnProperty(key)) {
+                rasatesting_inventory[key] = rasatesting_inventory[key] || 0;
+              }
+            }
+
+            fetch("/api/rasatesting_inventory", {
+              method: "POST",
+              body: JSON.stringify(rasatesting_inventory),
+              headers: {
+                "Content-type": "application/json",
+              },
+            })
+              .then((response) => response.json())
+              .catch((error) => {
+                console.error(error);
+              });
+          });
+      });
+    } else {
+      alert("You disagreed to the notice.");
+    }
+  }
+  
+
+/*
+  function updateContactLabel() {
+    const requestorInformation = document.getElementById("requestor_information");
+    const requestorTypeLabel = document.getElementById("requestor");
+    const requestorTypeInput = document.getElementById("requestor_type");
+
+    if (requestorInformation.value === "Student Leader") {
+      requestorTypeLabel.textContent = "Organization Name";
+      requestorTypeInput.placeholder = "Organization Name";
+      requestorTypeLabel.classList.add("long-input");
+    } else if (requestorInformation.value === "Student") {
+      requestorTypeLabel.textContent = "Course and Section";
+      requestorTypeInput.placeholder = "Course and Section";
+      requestorTypeLabel.classList.add("long-input");
+    } else if (requestorInformation.value === "Teacher") {
+      requestorTypeLabel.textContent = "Department";
+      requestorTypeInput.placeholder = "Department";
+      requestorTypeLabel.classList.add("long-input");
+    } else if (requestorInformation.value === "Admin") {
+      requestorTypeLabel.textContent = "Department";
+      requestorTypeInput.placeholder = "Department";
+      requestorTypeLabel.classList.add("long-input");
+    } else {
+      requestorTypeLabel.textContent = "Requestor Type";
+      requestorTypeInput.placeholder = "";
+      requestorTypeLabel.classList.remove("long-input");
+    }
+    requestorTypeInput.value = "";
+
+    //////////////////////////////////////////////////////
+    var endorsedLabel = document.getElementById('endorsedLabel');
+    var endorsedSelect = document.getElementById('endorsed');
+    var endorsedSelect2 = document.getElementById('endorsed2');
+
+    if (requestorInformation.value === 'Student' || requestorInformation.value === 'Student Leader') {
+      endorsedLabel.style.display = 'block';
+      endorsedSelect.style.display = 'block';
+      endorsedSelect2.style.display = 'none';
+      endorsedSelect.setAttribute('required', true);
+      endorsedSelect2.removeAttribute('required');
+    } else if (requestorInformation.value === 'Teacher') {
+      endorsedLabel.style.display = 'block';
+      endorsedSelect.style.display = 'none';
+      endorsedSelect2.style.display = 'block';
+      endorsedSelect.removeAttribute('required');
+      endorsedSelect2.setAttribute('required', true);
+    } else {
+      endorsedLabel.style.display = 'none';
+      endorsedSelect.style.display = 'none';
+      endorsedSelect2.style.display = 'none'; 
+      endorsedSelect.removeAttribute('required');
+      endorsedSelect2.removeAttribute('required');
+    }
+  }
+  */
+
+  function formatDate() {
+    const eventDayInput = document.getElementById("event_day");
+    const selectedDate = eventDayInput.value;
+    const dateObject = new Date(selectedDate);
+    const year = dateObject.getFullYear();
+    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObject.getDate()).padStart(2, "0");
+    const formattedDate = `${year}-${month}-${day}`;
+    eventDayInput.value = formattedDate;
+    const today = new Date();
+    today.setDate(today.getDate() + 14);
+    const formattedToday = today.toISOString().split("T")[0];
+    eventDayInput.setAttribute("min", formattedToday);
+  }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    function changeRequestorLabel() {
+      var requestorInformation = document.getElementById("requestor_information").value;
+      var requestorLabel = document.getElementById("requestor");
+      if (requestorInformation === "Student" || requestorInformation === "Student Leader") {
+        requestorLabel.innerHTML = "Course and Section:";
+      } else if(requestorInformation === "Teacher"){
+        requestorLabel.innerHTML = "Department:";
+      } 
+    }
+    changeRequestorLabel();
+  });
+
+  
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  function showHideEndorsedDropdown() {
+    var requestorInformation = document.getElementById("requestor_information").value;
+    var courseValue = document.getElementById("requestor_type").value;
+    var endorsedDropdown = document.getElementById("endorsed");
+    var endorsedDropdown2 = document.getElementById("endorsed2");
+
+    if (requestorInformation === "Student" || requestorInformation === "Student Leader") {
+      endorsedDropdown.style.display = "block";
+      endorsedDropdown2.style.display = "none";
+    } else if (requestorInformation === "Teacher") {
+      endorsedDropdown.style.display = "none";
+      endorsedDropdown2.style.display = "block";
+
+      if (courseValue === "BSBA") {
+        endorsedDropdown2.selectedIndex = 3; // index of "Ms. Anne Bartolome"
+        endorsedDropdown2.disabled = true;
+      } else if (courseValue === "BSIT") {
+        endorsedDropdown2.selectedIndex = 1; // index of "Mr. Mac Salonga"
+        endorsedDropdown2.disabled = true;
+      } else {
+        endorsedDropdown2.selectedIndex = 0; // set default selected index
+        endorsedDropdown2.disabled = false;
+      }
+    } else {
+      endorsedDropdown.style.display = "none";
+      endorsedDropdown2.style.display = "none";
+    }
+  }
+
+  showHideEndorsedDropdown();
+  document.getElementById("requestor_type").addEventListener("change", showHideEndorsedDropdown);
+});
+</script>
+
+
+</html>

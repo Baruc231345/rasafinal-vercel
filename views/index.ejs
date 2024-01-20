@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FMS - Login</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body class="parent">    
+  <!-- container --> 
+  <div id="globalcontainer">
+
+    <!-- heading --> 
+    <div class="first-block-color"></div>
+    <div class="second-block-color"></div>
+    <div class="third-block-color"></div>
+
+    <!-- heading --> 
+    <header class="fixed-top">
+      <nav>
+        <h1 class="heading">Faculty Management <br>System</h1>
+      </nav>
+    </header>
+
+    <!-- body --> 
+    <div class="dynamic-body">
+      <form onsubmit="return false;" id="form">
+        <div class="logincontainer">
+          <h2 class="logintext">Login</h2>
+          <label for="name1">Username:</label>
+          <input type="text" id="name1" name="email"><br><br>
+          <label for="pass">Password:</label>
+          <input type="text" id="pass" name="password"><br><br>
+          <div class="message">
+            <div class="success" id="success"></div>
+            <div class="danger" id="danger"></div>
+          </div>
+          <button type="submit" id="submit"><strong>Submit</strong></button>
+          <button type="button" id="register"><strong>Register</strong></button>     
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+<script src="js/index_ejs_script.js"></script>
+</body>
+</html>
