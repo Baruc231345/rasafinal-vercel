@@ -9,7 +9,7 @@ const rasatesting = require("./rasatesting");
 const rasatesting2 = require("./rasatesting2");
 const rasatesting2_inventory = require("./rasatesting2_inventory");
 const rasatesting_inventory = require("./rasatesting_inventory");
-const insertSign = require("./insertSign");
+//const insertSign = require("./insertSign");
 const calendarInput = require ("./calendarInput");
 const rasa_view = require ("./rasa_view");
 
@@ -26,5 +26,5 @@ router.post("/rasatesting", rasatesting);
 router.post("/rasatesting2", rasatesting2)
 router.post("/rasatesting2_inventory", rasatesting2_inventory)
 router.post("/rasatesting_inventory", rasatesting_inventory)
-router.post("/insertSign", insertSign)
+//router.post("/insertSign", insertSign)
 module.exports = router; 
