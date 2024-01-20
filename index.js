@@ -13,6 +13,10 @@ app.use(session({
   cookie: { secure: false },
 }));
 
+app.get("/test", (req, res) => {
+  console.log("Test route accessed!");
+  res.send("Hello, this is the test route!");
+});
 
 app.use(bodyParser.urlencoded({extended:true}))
 
